@@ -1,0 +1,111 @@
+﻿@model Com.HSJF.HEAS.Web.Models.Role.RoleViewModel
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Role/Index">返回</a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;角色管理
+            </small>
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;修改
+            </small>
+        </h1>
+    </div>
+    <form action="/Role/EditRole" method="post">
+		<div class="hs-tool-bar">
+	        <button type="submit" class="btn btn-xs btn-success">
+	            <i class="icon-save"></i>
+	            保存
+	        </button>
+	    </div>
+	    <div class="vspace-4"></div>
+	    <div class="row form-horizontal">
+	        <div class="col-xs-12">
+	            <div class="tabbable">
+	            	<ul class="nav nav-tabs" id="myTab">
+	                    <li class="active"><a data-toggle="tab" href="#basic">角色信息</a></li>
+	                    <li><a data-toggle="tab" href="#menu">菜单权限</a></li>
+	                </ul>
+	                <div class="tab-content">
+	                    <div id="basic" class="tab-pane active">
+	                        <div class="form-horizontal">
+						        <hr />
+						        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+						        @Html.HiddenFor(model => model.ID)
+						
+						        <div class="form-group">
+						            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+						            <div class="col-md-10">
+						                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+						                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+						            </div>
+						        </div>
+						
+						        <div class="form-group">
+						            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+						            <div class="col-md-10">
+						                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+						                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+						            </div>
+						        </div>
+						
+						        <!--<div class="form-group">
+						            <div class="col-md-offset-2 col-md-10">
+						                <input type="submit" value="Save" class="btn btn-default" />
+						            </div>
+						        </div>-->
+						    </div>
+	                    </div>
+	
+	                    <div id="menu" class="tab-pane">
+	                        <div id="menulist"></div>
+	                    </div>
+	                </div>
+	            <div>
+	        </div>
+	    </div>
+	</form>
+<script type="text/javascript">
+    function getMenuList() {
+        $.get("/Account/GetMenuList", { userid: $("input[type='hidden'][id='ID']").val() }, function (r) {
+            if (r != null) {
+                $("#menulist").html(r);
+            }
+            else {
+                alert("无法获取菜单");
+            }
+        });
+    }
+    getMenuList();
+
+    function user_edit_success(r) {
+        if (r == "Success") {
+            window.location = "/Account/Index?status=ss";
+        }
+        else {
+        }
+    }
+    function setUserMenu(menuid) {
+        $.get("/Account/SetUserMenu", { roleid: $("#ID").val(), menuid: menuid }, function (r) {
+            if (r != null) {
+                $("#menulist").html(r);
+            }
+            else {
+                alert("无法获取数据!");
+            }
+        });
+    }
+    function RemoceUsermenu(menuid) {
+        $.get("/Account/RemoveUserMenu", { roleid: $("#ID").val(), menuid: menuid }, function (r) {
+            if (r != null) {
+                $("#menulist").html(r);
+            }
+            else {
+                alert("无法获取数据!");
+            }
+        });
+    }
+</script>

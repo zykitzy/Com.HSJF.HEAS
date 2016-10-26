@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "SignIn";
+}
+
+<h2>Test</h2>
+
+@if (Request.IsAuthenticated)
+{
+    <h1>@User.Identity.Name</h1>
+}

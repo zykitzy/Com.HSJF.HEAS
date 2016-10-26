@@ -1,0 +1,2282 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Com.HSJF.HEAS.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Com.HSJF.HEAS.Web.ApiControllers.FinishCaseController">
+            <summary>
+            案件结清
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.ApiControllers.HatsCaseController">
+            <summary>
+            hats通知签约
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.ApiControllers.LendingConfirmationController">
+            <summary>
+            hats通知案件放款
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController">
+            <summary>
+            贷后案件信息
+            </summary>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController.CONTRACT_INTEREST_RATE">
+            <summary>
+            合同年利率
+            </summary>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController.RECEIVE_TYPE">
+            <summary>
+            收款方式
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController.Post(Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest)">
+            <summary>
+            根据案件日期查询案件信息
+            </summary>
+            <param name="request">请求信息</param>
+            <returns>案件信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController.GetAllAfterCases">
+            <summary>
+            获取所有贷后案件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.ApiControllers.AfterCaseController.GetThirdPartyRate(System.String)">
+            <summary>
+            获取第三方资金年利率
+            </summary>
+            <param name="thirdParty">第三方资金名称</param>
+            <returns>年利率</returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.ApiControllers.DayStatisticsController">
+            <summary>
+            按日统计个分公司的案件本金
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.ApiControllers.DayStatisticsController.Post(System.String,System.Boolean)">
+            <summary>
+            统计指定日期的各分公司案件本金之和
+            </summary>
+            <param name="date">指定日期(yyyy/MM/dd)</param>
+            <param name="isUnitChange">单位是否转换成万元</param>
+            <returns>本金信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:Com.HSJF.HEAS.Web.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.#ctor(Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:Com.HSJF.HEAS.Web.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Com.HSJF.HEAS.Web.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase">
+            <summary>
+            放款案件信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CaseNum">
+            <summary>
+            案件号(合同编码)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.SalesGrouptId">
+            <summary>
+            业务员所属分公司Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.SalesCompanyName">
+            <summary>
+            业务员所属分公司
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CompanyCode">
+            <summary>
+            公司简称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CustomerId">
+            <summary>
+            客户Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CustomerName">
+            <summary>
+            客户名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CustomerIdentificationType">
+            <summary>
+            客户证件类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.CustomerIdentificationNumber">
+            <summary>
+            客户证件号码
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.AccountName">
+            <summary>
+            打款账户名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.EarnestMoney">
+            <summary>
+            保证金
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.DebtName">
+            <summary>
+            债务人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.LenderName">
+            <summary>
+            出借人(债权人)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.LoanTerm">
+            <summary>
+            客户贷款期数
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.LendingDate">
+            <summary>
+            放款日
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.ContractAmount">
+            <summary>
+            本金(放款金额)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.ContractInterestRate">
+            <summary>
+            合同年利率
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.RealInterestRate">
+            <summary>
+            执行年利率
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.ReceiveType">
+            <summary>
+            收款方式
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.FundId">
+            <summary>
+            资金方ID(放款方ID)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.FundInterestRate">
+            <summary>
+            资金方年利率
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.FundName">
+            <summary>
+            资金方名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.LoadType">
+            <summary>
+            贷款模式
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCase.VirtualAccount">
+            <summary>
+            虚拟帐号(贷前不提供)
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCaseSummary">
+            <summary>
+            贷后案件摘要信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCaseSummary.ID">
+            <summary>
+            案件ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.AfterCaseSummary.CaseNum">
+            <summary>
+            业务编号
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest">
+            <summary>
+            根据时间请求贷后案件
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest.BeginDate">
+            <summary>
+            案件开始时间
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest.EndDate">
+            <summary>
+            案件结束时间
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest.GetErrorMessage">
+            <summary>
+            获取错误信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Models.AfterCase.GetAfterCaseByDateRequest.IsValid">
+            <summary>
+            参数是否正确
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AuditHistory.Description">
+            <summary>
+            审批意见
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.AuditHistory.RejectType">
+            <summary>
+            拒绝理由
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.AddressType">
+            <summary>
+            地址类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.AddressTypeText">
+            <summary>
+            地址类型text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.AddressInfo">
+            <summary>
+            地址信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.PersonID">
+            <summary>
+            联系人ID
+            </summary> 
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.IsDefault">
+            <summary>
+            是否为默认地址
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.AddressAuditViewModel.RelationPersonAudit">
+            <summary>
+            联系人对象集合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.CaseNum">
+            <summary>
+            业务编号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.CaseType">
+            <summary>
+            借款类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.CaseTypeText">
+            <summary>
+            借款类型text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.SalesID">
+            <summary>
+            销售人员Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.SalesGroupID">
+            <summary>
+            销售组Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.DistrictID">
+            <summary>
+            地区Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Term">
+            <summary>
+            借款期限
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.TermText">
+            <summary>
+            借款期限text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Partner">
+            <summary>
+            合作???
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Description">
+            <summary>
+            退回或者通过需要填注意见时可以使用此字段
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Version">
+            <summary>
+            数据版本
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.LoanAmount">
+            <summary>
+            申请金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.BorrowerPerson">
+            <summary>
+            借款人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.IsNeedReport">
+            <summary>
+            本次业务是否需要出具评估
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.CollateralAudits">
+            <summary>
+            抵押物信息集合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.RelationPersonAudits">
+            <summary>
+            关系人信息集合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.IndividualCredits">
+            <summary>
+            个人资信情况
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.EnterpriseCredits">
+            <summary>
+            企业资信情况
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.EnforcementPersons">
+            <summary>
+            被执行人情况
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.IndustryCommerceTaxs">
+            <summary>
+            工商税务情况
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.HouseDetails">
+            <summary>
+            房屋明细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Guarantors">
+            <summary>
+            担保人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel.Introducer">
+            <summary>
+            介绍人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.BaseAuditListPageRequestViewModel.SalesGroupId">
+            <summary>
+            销售团队Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.CollateralAuditViewModel.AuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.CollateralAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.CollateralAuditViewModel.BaseAudit">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.ContactAuditViewModel.PersonID">
+            <summary>
+            联系人ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.ContactAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.ContactAuditViewModel.RelationPersonAudit">
+            <summary>
+            联系人详细信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EmergencyContactAuditViewModel.PersonID">
+            <summary>
+            关系人ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EmergencyContactAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EmergencyContactAuditViewModel.RelationPersonAudit">
+            <summary>
+            关系人对象
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnforcementPersonViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnforcementPersonViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnforcementPersonViewModel.BaseAudit">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnterpriseCreditViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnterpriseCreditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EnterpriseCreditViewModel.BaseAudit">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EstimateSourceViewModel.HouseDetailID">
+            <summary>
+            房屋详细ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EstimateSourceViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.EstimateSourceViewModel.HouseDetail">
+            <summary>
+            房屋详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.GuarantorViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.GuarantorViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.GuarantorViewModel.BaseAudit">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.HouseDetailViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.HouseDetailViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.HouseDetailViewModel.BaseAudit">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.HouseDetailViewModel.EstimateSources">
+            <summary>
+            估价来源
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndividualCreditViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndividualCreditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndividualCreditViewModel.BaseAudit">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndustryCommerceTaxViewModel.BaseAuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndustryCommerceTaxViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IndustryCommerceTaxViewModel.BaseAudit">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.ID">
+            <summary>
+            介绍人Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.Name">
+            <summary>
+            介绍人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.Contract">
+            <summary>
+            介绍人联系电话
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.RebateAmmount">
+            <summary>
+            返利金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.RebateRate">
+            <summary>
+            返利百分比
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.Account">
+            <summary>
+            介绍人账户
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.AccountBank">
+            <summary>
+            介绍人开户行
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.AuditID">
+            <summary>
+            审核案件Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.IntroducerAuditViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationEnterpriseAuditViewModel.PersonID">
+            <summary>
+            联系人ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationEnterpriseAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationEnterpriseAuditViewModel.RelationPersonAudit">
+            <summary>
+            联系人详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.RelationType">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.RelationTypeText">
+            <summary>
+            类型Text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.BorrowerRelation">
+            <summary>
+            与借款人关系
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.BorrowerRelationText">
+            <summary>
+            与借款人关系
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.IdentificationType">
+            <summary>
+            证件类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.IdentificationTypeText">
+            <summary>
+            证件类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.IdentificationNumber">
+            <summary>
+            证件号码
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.ExpiryDate">
+            <summary>
+            证件有效期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.Birthday">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.IdentificationFile">
+            <summary>
+            身份证复印件
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.IdentificationFileName">
+            <summary>
+            身份证复印件文件结合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.MaritalStatus">
+            <summary>
+            婚姻状况
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.MaritalStatusText">
+            <summary>
+            婚姻状况text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.MarryFile">
+            <summary>
+            结婚证
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.MarryFileName">
+            <summary>
+            结婚证文件集合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.SingleFile">
+            <summary>
+            单身证明
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.SingleFileName">
+            <summary>
+            单身证明文件
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.AuditID">
+            <summary>
+            审核ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.Sequence">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.BaseAudits">
+            <summary>
+            审核详细
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.ContactAudits">
+            <summary>
+            联系方式
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.AddressAudits">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.RelationEnterpriseAudits">
+            <summary>
+            相关企业
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Audit.RelationPersonAuditViewModel.EmergencyContactAudits">
+            <summary>
+            紧急联系人
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.BaseApiResponse`1">
+            <summary>
+            api返回统一格式
+            </summary>
+            <typeparam name="T">具体数据格式</typeparam>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.Models.StatusEnum.Success">
+            <summary>
+            请求处理成功
+            </summary>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.Models.StatusEnum.Error">
+            <summary>
+            请求处理错误
+            </summary>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.Models.StatusEnum.Warning">
+            <summary>
+            请求警告(适用于参数错误)
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.Biz.AddressViewModel">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.AddressViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.CaseNum">
+            <summary>
+            业务编号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.CaseType">
+            <summary>
+            借款类型
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.SalesID">
+            <summary>
+            销售人员
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.SalesGroupID">
+            <summary>
+            销售组
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.DistrictID">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.LoanAmount">
+            <summary>
+            申请金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.Term">
+            <summary>
+            借款期限
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.AnnualRate">
+            <summary>
+            年化利率
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.TermText">
+            <summary>
+            借款期限text
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.OpeningBank">
+            <summary>
+            开户行
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel.OpeningSite">
+            <summary>
+            开户网点
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseListPageRequestViewModel.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseListPageRequestViewModel.CaseNum">
+            <summary>
+            案件号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.BaseCaseListPageRequestViewModel.CaseStatus">
+            <summary>
+            案件状态
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.CollateralViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.ContactViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.EmergencyContactViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.IntroducerViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.RelationEnterpriseViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Biz.RelationPersonViewModel.Sequence">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.FinisheCase.FinishCaseRequest">
+            <summary>
+            结清案件请求
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinisheCase.FinishCaseRequest.CaseNum">
+            <summary>
+            案件号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinisheCase.FinishCaseRequest.FinishTime">
+            <summary>
+            案件结清时间
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseSummary">
+            <summary>
+            案件摘要信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseSummary.Id">
+            <summary>
+            案件ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseSummary.CaseNum">
+            <summary>
+            案件编码
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseSummary.CaseStatusText">
+            <summary>
+            案件状态
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel">
+            <summary>
+            已还清案件详细信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ID">
+            <summary>
+            案件ID
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LendTime">
+            <summary>
+            放款时间
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LendFile">
+            <summary>
+            放款证明
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LendFileName">
+            <summary>
+            放款文件
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.CaseNum">
+            <summary>
+            案件号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.CaseStatusText">
+            <summary>
+            案件状态
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.CustomerName">
+            <summary>
+            客户名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ContactNumber">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.Borrower">
+            <summary>
+            借款人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.BankCard">
+            <summary>
+            借款人帐号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.OpeningBank">
+            <summary>
+            开户行
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.OpeningSite">
+            <summary>
+            开户名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ContractAmount">
+            <summary>
+            放款金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.Description">
+            <summary>
+            审批意见
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.SalesID">
+            <summary>
+            销售人员
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.CreateTime">
+            <summary>
+            提交日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ServiceCharge">
+            <summary>
+            服务费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ServiceChargeRate">
+            <summary>
+            服务费点数
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.Deposit">
+            <summary>
+            客户已支付金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DepositDate">
+            <summary>
+            客户支付定金日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.IsActivitieRate">
+            <summary>
+            是否为活动期间的优惠利率
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.Introducer">
+            <summary>
+            介绍人集合
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.Merchandiser">
+            <summary>
+            跟单人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LenderName">
+            <summary>
+            出借人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.EarnestMoney">
+            <summary>
+            出借人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.OutboundCost">
+            <summary>
+            外访费（下户费）
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DebitNotarizationCost">
+            <summary>
+            代收公证费用
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DebitEvaluationCost">
+            <summary>
+            代收评估费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DebitGuaranteeCost">
+            <summary>
+            代收担保费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DebitInsuranceCost">
+            <summary>
+            代收保险费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.DebitOtherCost">
+            <summary>
+            代收其他
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LevyNotarizationCost">
+            <summary>
+            公司承担的公证费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LevyAssetsSurveyCost">
+            <summary>
+            公司承担的产调费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LevyCreditReportCost">
+            <summary>
+            公司承担的信用报告费
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LevyOtherCost">
+            <summary>
+            公司承担的其他费用
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.CaseMode">
+            <summary>
+            案件模式
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ThirdParty">
+            <summary>
+            第三方平台
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.MonthlyInterest">
+            <summary>
+            月利息金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.LendingDate">
+            <summary>
+            放款日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.PaymentDate">
+            <summary>
+            回款日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.ActualInterest">
+            <summary>
+            实收利息（不退客户）
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.AdvanceInterest">
+            <summary>
+            预收利息（可退客户）
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.AuditTerm">
+            <summary>
+            审核期限
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.FinishedCaseViewModel.AuditRate">
+            <summary>
+            审核利率
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.FinishedCase.GetFinishedCaseRequest">
+            <summary>
+            分页请求
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.GetFinishedCaseRequest.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.FinishedCase.GetFinishedCaseRequest.CaseNum">
+            <summary>
+            案件编号
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Models.FinishedCase.GetFinishedCaseRequest.Map">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.ID">
+            <summary>
+            hatsCase id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.BaseAuditID">
+            <summary>
+            案件id(来自heas)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.CaseNum">
+            <summary>
+            案件编号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferNum">
+            <summary>
+            转让编号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferType">
+            <summary>
+            案件模式
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.ThirdParty">
+            <summary>
+            第三方Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.EarnestMoney">
+            <summary>
+            保证金
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferInterest">
+            <summary>
+            转让利率(heas审批利率)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferDate">
+            <summary>
+            转让日期(heas转让日期)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferTerm">
+            <summary>
+            转让期限(heas审批期限)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferAmount">
+            <summary>
+            转让金额(heas审批金额)
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.TransferState">
+            <summary>
+            转让状态
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.AuditComment">
+            <summary>
+            审核信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.AuditDescription">
+            <summary>
+            审批备注
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.CaseDetail">
+            <summary>
+            案件基本信息
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.CreateUser">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.HatsCase.HatsCase.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.LendingConfirmation.ConfirmLendingRequest.CaseNum">
+            <summary>
+            案件号
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest">
+            <summary>
+            放款列表页请求
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.CaseNum">
+            <summary>
+            案件号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.CaseStatus">
+            <summary>
+            案件状态
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.SalesGroupId">
+            <summary>
+            销售团队Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.StartDate">
+            <summary>
+            放款起始时间
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingCriteriaRequest.EndDate">
+            <summary>
+            放款结束时间
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel">
+            <summary>
+            放款列表
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.ID">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.CaseNum">
+            <summary>
+            业务编号
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.BorrowerName">
+            <summary>
+            借款人姓名
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.LoanAmount">
+            <summary>
+            申请金额
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.LendingDate">
+            <summary>
+            放款日期
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.CaseStatus">
+            <summary>
+            案件状态
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.CaseStatusText">
+            <summary>
+            案件状态名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.SalesGroupID">
+            <summary>
+            销售组Id
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Lendings.LendingPageViewModel.SalesGroupText">
+            <summary>
+            销售组名称
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Sales.DistrictViewModel.SalesGroup">
+            <summary>
+            销售组
+            </summary>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Sales.SalesGroupViewModel.DistrictID">
+             <summary>
+            地区ID 
+             </summary> 
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Models.Sales.SalesGroupViewModel.District">
+            <summary>
+            地区对象
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AccountController.Login(Com.HSJF.HEAS.Web.Models.LoginViewModel)">
+            <summary>
+            用户登陆，需要改进
+            </summary>
+            <param name="usermodel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AccountController.SetUserMenu(System.String,System.String)">
+            <summary>
+            设置为可查看菜单
+            </summary>
+            <param name="userid"></param>
+            <param name="menuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AccountController.RemoveUserMenu(System.String,System.String)">
+            <summary>
+            取消可查看菜单
+            </summary>
+            <param name="userid"></param>
+            <param name="menuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.GetBaseAudit(System.String)">
+            <summary>
+            根据ID获取审核信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.EditBaseAudit(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+            保存编辑
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.SubmitBaseAudit(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+            一审通过
+            </summary>
+            <param name="model">案件数据</param>
+            <returns>提交结果</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.RejectBaseAudit(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+            重载审批拒绝
+            </summary>
+            <param name="model">案件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.ReturnBaseAudit(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+            重载审批退回，审核退回调查
+            </summary>
+            <param name="model">案件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.ApprovalBaseAudit(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+             二审通过
+            </summary>
+            <param name="model">二审</param>
+            <returns></returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Controllers.AuditController.AuditHelper">
+            <summary>
+            获取进件的辅助对象
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.AuditHelper.SaveFiles(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel,System.String)">
+            <summary>
+            新增文件信息
+            </summary>
+            <param name="baseaudit">审核信息</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.AuditHelper.DeleteRelationState(System.Collections.Generic.IEnumerable{Com.HSJF.Framework.EntityFramework.Model.Audit.RelationPersonAudit})">
+            <summary>
+            删除锁定表信息
+            </summary>
+            <param name="RelationPerson"></param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.AuditHelper.AddRelationState(System.Collections.Generic.IEnumerable{Com.HSJF.Framework.EntityFramework.Model.Audit.RelationPersonAudit},System.String)">
+            <summary>
+            添加锁定信息
+            </summary>
+            <param name="RelationPerson"></param>
+            <param name="SalesID"></param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.ErrorMessageAdd(System.String,System.String,System.Collections.Generic.List{Com.HSJF.HEAS.Web.Models.ErrorMessage})">
+            <summary>
+            错误提示集合
+            </summary>
+            <param name="key">错误提示键</param>
+            <param name="message">错误提示信息</param>
+            <param name="listError">错误集合</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.AuditController.PushAuditCase(Com.HSJF.HEAS.Web.Models.Audit.BaseAuditViewModel)">
+            <summary>
+            推送到HATS
+            </summary>
+            <param name="audit"></param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.SubmitBaseCase(Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel)">
+            <summary>
+            提交进件
+            </summary>
+            <param name="model">进件model</param>
+            <returns></returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper">
+            <summary>
+            获取进件的辅助对象
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper.SaveFile(Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel)">
+            <summary>
+            新增文件信息
+            </summary>
+            <param name="basecase">进件信息</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper.SetContactAsync(System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.Biz.RelationPersonViewModel})">
+            <summary>
+            获取联系人联系方式
+            </summary>
+            <param name="relationpersonid">联系人集合</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper.SetAddressAsync(System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.Biz.RelationPersonViewModel})">
+            <summary>
+            获取联系人地址
+            </summary>
+            <param name="relationpersonid">联系人集合</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper.SetRelationEnterpriseAsync(System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.Biz.RelationPersonViewModel})">
+            <summary>
+            获取联系人企业信息
+            </summary>
+            <param name="relationpersonid">联系人集合</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.BizController.CaseHelper.SetEmergencyContactAsync(System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.Biz.RelationPersonViewModel})">
+            <summary>
+            紧急联系人集合
+            </summary>
+            <param name="relationpersonid"></param>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Controllers.FinishedCaseController">
+            <summary>
+            已结清案件信息
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.FinishedCaseController.FinishCaseIndex">
+            <summary>
+            首页
+            </summary>
+            <returns>首页</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.FinishedCaseController.GetFinishedCases(Com.HSJF.HEAS.Web.Models.FinishedCase.GetFinishedCaseRequest)">
+            <summary>
+            分页获取结清案件列表
+            </summary>
+            <param name="request">查询条件</param>
+            <returns>分页列表</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.FinishedCaseController.ViewFinishedCase(System.String)">
+            <summary>
+            获取结清案件的具体信息
+            </summary>
+            <param name="id">案件ID</param>
+            <returns>案件信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.FinishedCaseController.GetFinishedCase(System.String)">
+            <summary>
+            获取案件详情
+            </summary>
+            <param name="id">案件ID</param>
+            <returns>案件信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.LendingController.SubmitLending(Com.HSJF.HEAS.Web.Models.Lendings.LendingViewModel)">
+            <summary>
+            提交放款
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.LendingController.RejectLending(System.String)">
+            <summary>
+            拒绝放款
+            </summary>
+            <param name="id">案件id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.LendingController.SaveFiles(System.String,System.String,System.String)">
+            <summary>
+            附件信息保存
+            </summary>
+            <param name="filenames">文件名</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.MortgageController.EditMortgage(Com.HSJF.HEAS.Web.Models.Mortgage.PublicMortgageViewModel)">
+            <summary>
+            签约保存
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.MortgageController.SubmitMortgage(Com.HSJF.HEAS.Web.Models.Mortgage.PublicMortgageViewModel)">
+            <summary>
+            提交公正签约
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.MortgageController.RejectMortgage(System.String,System.String)">
+            <summary>
+            签约失败，退回
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.MortgageController.SaveFiles(System.String,System.String,System.String)">
+            <summary>
+            保存附件
+            </summary>
+            <param name="filenames">名称</param>
+            <param name="linkId"></param>
+            <param name="linkkey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.MortgageController.GetUserByPermission(System.String)">
+            <summary>
+            查找指定权限的所有用户
+            </summary>
+            <param name="permissionName">权限名</param>
+            <returns>拥有权限的所有的用户信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.OtherController.FileSwitchInit">
+            <summary>
+            文件模式切换初始化动作
+            </summary>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.GetDistrict">
+            <summary>
+            获取所有地区
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.DistrictIndex">
+            <summary>
+            地区视图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.CreateDistrict">
+            <summary>
+            新增地区
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.CreateDistrict(Com.HSJF.HEAS.Web.Models.Sales.DistrictViewModel)">
+            <summary>
+            保存新增
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.EditDistrict(System.String)">
+            <summary>
+            修改地区
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.EditDistrict(Com.HSJF.HEAS.Web.Models.Sales.DistrictViewModel)">
+            <summary>
+            保存修改
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.DeleteDistrict(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.GetSalesGroup(System.String)">
+            <summary>
+            根据地区获取所有销售团队
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Controllers.SalesController.GetSales(System.String)">
+            <summary>
+            根据销售团队获取所有销售人员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Domain.LdapAuthentication.IsAuthenticated(System.String,System.String)">
+            <summary>
+            域登陆专用
+            </summary>
+            <param name="username"></param>
+            <param name="pwd"></param>
+            <param name="domain"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Helper.CaseStatusHelper.GetStatsText(System.String)">
+            <summary>
+            获取案件状态含义
+            </summary>
+            <param name="status">案件状态</param>
+            <returns>案件状态含义</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Helper.CaseStatusHelper.GetBigStatusText(System.String)">
+            <summary>
+            获取案件状态含义
+            </summary>
+            <param name="status">案件状态</param>
+            <returns>案件状态含义</returns>
+        </member>
+        <member name="P:Com.HSJF.HEAS.Web.Helper.DictionaryString.CollateralType">
+            <summary>
+            房屋信息为抵押物
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Helper.FileDisplayHelper.CanViewFile(System.String,Com.HSJF.Infrastructure.Identity.Model.User)">
+            <summary>
+            是否可以下载或者查看文件
+            </summary>
+            <param name="linkkey"></param>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.MvcHtmlHelper.CheckBoxList(System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.CheckBoxListModel},System.Collections.Generic.IDictionary{System.String,System.Object},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="htmlHelper"></param>
+            <param name="name">对应 checkbox 的name 属性</param>
+            <param name="listInfos">需要绑定的数据源</param>
+            <param name="htmlAttributes"></param>
+            <param name="number">每行要显示的个数,默认为1个</param>
+            <returns></returns>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.HelpPage.WebBrowser.form1">
+            <summary>
+            form1 控件。
+            </summary>
+            <remarks>
+            自动生成的字段。
+            若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+            </remarks>
+        </member>
+        <member name="F:Com.HSJF.HEAS.Web.HelpPage.WebBrowser.imgdisplay">
+            <summary>
+            imgdisplay 控件。
+            </summary>
+            <remarks>
+            自动生成的字段。
+            若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+            </remarks>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Audit.CollateraAuditlValidator">
+            <summary>
+            抵押物验证器
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Audit.EditBaseAuditValidator">
+            <summary>
+            审计案件信息验证
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Audit.SubmitBaseAuditValidator">
+            <summary>
+            提交审核案件信息验证
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Biz.EditBaseCaseValidator">
+            <summary>
+            编辑基础案件校验(数据合法性校验)
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Biz.SubmitBaseCaseValidator">
+            <summary>
+            提交进件信息验证
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Biz.CollateralValidator">
+            <summary>
+            抵押物验证器
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.Common.IdCardValidator">
+            <summary>
+            大陆身份证号码验证
+            </summary>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.IValidator`1">
+            <summary>
+            验证器接口
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.IValidator`1.Validate(`0)">
+            <summary>
+            验证方法
+            </summary>
+            <param name="target">待验证对象</param>
+            <returns>验证结果</returns>
+        </member>
+        <member name="T:Com.HSJF.HEAS.Web.Validations.ValidateResult">
+            <summary>
+            验证结果
+            </summary>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.ValidateResult.IsValid">
+            <summary>
+            通过验证
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.ValidateResult.IsNotValid">
+            <summary>
+            不通过验证
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.ValidateResult.GetErrors">
+            <summary>
+            获取错误信息
+            </summary>
+            <returns>错误信息</returns>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.ValidateResult.Add(Com.HSJF.HEAS.Web.Models.ErrorMessage)">
+            <summary>
+            添加错误信息
+            </summary>
+            <param name="error">错误信息</param>
+        </member>
+        <member name="M:Com.HSJF.HEAS.Web.Validations.ValidateResult.Add(System.Collections.Generic.IEnumerable{Com.HSJF.HEAS.Web.Models.ErrorMessage})">
+            <summary>
+            添加多条错误信息
+            </summary>
+            <param name="errors">错误信息</param>
+        </member>
+    </members>
+</doc>

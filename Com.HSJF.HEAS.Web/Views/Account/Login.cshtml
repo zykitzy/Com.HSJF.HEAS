@@ -1,0 +1,122 @@
+﻿@model Com.HSJF.HEAS.Web.Models.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>泓申金服-贷前审批系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/ace.min.css" />
+	<script>
+		function checkNavugator(){
+			var nav = navigator.userAgent;
+			if(nav.indexOf("Chrome")==-1&&nav.indexOf("Firefox")==-1&&nav.indexOf("Safari")==-1){
+				alert("本系统暂时只支持谷歌、火狐以及safari浏览器\n对其他浏览器用户使用造成不便敬请谅解！");
+				location.href="result.html";
+			}
+		}
+		checkNavugator();
+	</script>
+    <style>
+        body {
+            background-image: url("../../img/login_bg.jpg");
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body class="login-layout">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row" style="background-color:rgba(0,0,0,0.7);">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="center">
+                            <h1>
+                                <img class="header-logo-s" src="../../img/hs_logo_white_s.png" alt="" style="height:22px;" />
+                                <span class="white small">贷前审批管理系统</span>
+                            </h1>
+                            <h4 class="blue">&copy; 泓申金服</h4>
+                        </div>
+
+                        <div class="space-12"></div>
+
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header blue lighter bigger">
+                                            <i class="icon-signin green"></i>
+                                            欢迎登录
+                                        </h4>
+                                        <div class="space-6"></div>
+
+                                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                            <fieldset>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control", @placeholder= "用户名" })
+                                                        @Html.ValidationMessageFor(m => m.LoginName,"", new { @class = "text-danger" })
+                                                        <i class="icon-user"></i>
+                                                    </span>
+                                                </label>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "密码" })
+                                                        @Html.ValidationMessageFor(m => m.Password, "",new { @class = "text-danger" })
+                                                        <i class="icon-lock"></i>
+                                                    </span>
+                                                </label>
+
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        @Html.CheckBoxFor(m => m.RememberBrowser, new { @class = "" })
+                                                        @Html.LabelFor(m => m.RememberBrowser, new { @class = "" })
+                                                    </label>
+
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                        <i class="icon-key"></i>
+                                                        登录
+                                                    </button>
+                                                </div>
+
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        }
+
+                                    </div><!-- /widget-main -->
+
+                                    <div class="toolbar clearfix padding-12">
+                                        <center style="line-height: 300%; color: #efefef;"><small>2016&copy; 泓申金服版权所有</small></center>
+                                    </div>
+                                </div><!-- /widget-body -->
+                            </div><!-- /login-box -->
+                        </div><!-- /position-relative -->
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+<!-- inline scripts related to this page -->
+    <script src="~/js/jquery-1.12.2.min.js"></script>
+    @*<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>*@
+</body>
+</html>
+
+

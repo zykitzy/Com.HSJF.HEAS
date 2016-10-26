@@ -1,0 +1,108 @@
+2016-08-22 12:33:43.1225 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 21
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------
+2016-08-22 12:33:43.1515 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Base Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 21
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------
+2016-08-22 12:43:55.1435 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 22
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------
+2016-08-22 12:43:55.1555 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Base Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 22
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------
+2016-08-22 13:06:50.5202 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 22
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------
+2016-08-22 13:06:50.5322 Com.HSJF.Infrastructure.LogExtend.LogManagerExtend.WriteException 
+             Debug: Application Base Error /r/n  
+                                            Exception Message:未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040) /r/n 
+                                            Exception Source:System.Net.Http.Formatting /r/n 
+                                            Exception Trace:   在 System.Net.Http.Formatting.BaseJsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.JsonMediaTypeFormatter..ctor()
+   在 System.Net.Http.Formatting.MediaTypeFormatterCollection.CreateDefaultFormatters()
+   在 System.Web.Http.HttpConfiguration.DefaultFormatters(HttpConfiguration config)
+   在 System.Web.Http.HttpConfiguration..ctor(HttpRouteCollection routes)
+   在 System.Web.Http.GlobalConfiguration.<CreateConfiguration>b__0()
+   在 System.Lazy`1.CreateValue()
+   在 System.Lazy`1.LazyInitValue()
+   在 System.Lazy`1.get_Value()
+   在 System.Web.Http.GlobalConfiguration.get_Configuration()
+   在 System.Web.Http.GlobalConfiguration.Configure(Action`1 configurationCallback)
+   在 Com.HSJF.HEAS.Web.Global.Application_Start(Object sender, EventArgs e) 位置 d:\SVN\HEAS\Source\Branches\Com.HSJF.HEAS\Com.HSJF.HEAS.Web\Global.asax.cs:行号 22
+               HttpApplication.RaiseOnError => Global.Application_Error => LogManagerExtend.WriteException
+          ------------------------------------------------------------------------------

@@ -1,0 +1,836 @@
+@model Com.HSJF.HEAS.Web.Models.Mortgage.PublicMortgageViewModel
+@helper GetDictionary(string parentPath)
+{
+    foreach (var t in new Com.HSJF.HEAS.Web.Helper.DictionaryHelper().GetListByType("", parentPath))
+    {
+        <option value="@t.Value">@t.Text</option>
+    }
+}
+
+<div id="dialog_person" class="hide" dialog-title="关系人" dialog-size="large" for="basecase_person_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h6 class="header smaller blue">基本信息</h6>
+            <div class="row padt10">
+                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="RelationPersonAudits" maxlength="100" />
+                    <input class="form-control" type="text" data-field="IsFrom" data-class="RelationPersonAudits"/>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>姓名</label>
+                    <input id="person-name" class="form-control" type="text" data-field="Name" data-class="RelationPersonAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>关系人类型</label>
+                    <select id="person-type" class="form-control" data-fill-code="Dict:-PersonType" data-field="RelationType" data-class="RelationPersonAudits" disabled>
+                        <option></option>
+                        @GetDictionary("-PersonType")
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>与借款人关系</label>
+                    <select id="relation-type" class="form-control" data-fill-code="Dict:-EmergencyType" data-field="BorrowerRelation" data-class="RelationPersonAudits" disabled>
+                        <option></option>
+                        @GetDictionary("-EmergencyType")
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>是否共同借款人</label>
+                    <select class="form-control" data-field="IsCoBorrower" data-class="RelationPersonAudits" disabled>
+                        <option value=""></option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>担保方式</label>
+                    <input class="form-control" type="text" data-field="Warranty" data-class="RelationPersonAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>证件类型</label>
+                    <select id="person-doctype" class="form-control" data-fill-code="Dict:-DocType" data-field="IdentificationType" data-class="RelationPersonAudits" onchange="IDType_Changed(this, 'person-docnumber', 'person-birthday');" action="onchange" disabled>
+                        <option></option>
+                        @GetDictionary("-DocType")
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>证件号码</label>
+                    <input id="person-docnumber" class="form-control" type="text" data-field="IdentificationNumber" data-class="RelationPersonAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>证件有效期</label>
+                    <div class="input-group">
+                        <input class="form-control datePickerLimit" type="text" data-field="ExpiryDate" data-class="RelationPersonAudits" valid-type="date" disabled />
+                        <span class="input-group-addon">
+                            <i class="icon-calendar bigger-110"></i>
+                        </span>
+                        <span class="input-group-addon">
+                            <input type="checkbox" name="Long-term" id="Long-term" value="1" data-field="" onclick="longterm(this);" disabled />&nbsp;&nbsp;长期
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>证件复印件</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="IdentificationFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>出生日期</label>
+                    <div class="input-group">
+                        <input class="form-control date-picker" type="text"
+                        	onchange="birithday(this)" data-field="Birthday" data-class="RelationPersonAudits" valid-type="date" disabled />
+                        <span class="input-group-addon">
+                            <i class="icon-calendar bigger-110"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>婚姻状态</label>
+                    <select class="form-control" data-fill-code="Dict:-MaritalStatus" data-field="MaritalStatus" data-class="RelationPersonAudits" disabled>
+                        <option value=""></option>
+                        @GetDictionary("-MaritalStatus")
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>个人征信报告</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="IndividualFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>银行流水</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="BankFlowFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>婚姻证明</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" id="mar_files" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="MarryFile" data-class="RelationPersonAudits" data-type="files" id="mar_status"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>出生证明</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="BirthFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>户口本复印件</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="AccountFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>其他材料</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="OtherFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">
+                联系方式
+            </h6>
+            <div class="table-responsive">
+                <table disabled id="basecase_contact_list" class="table table-striped table-bordered table-hover" data-field="ContactAudits" data-class="RelationPersonAudits" data-child="ContactAudits" for="dialog_contact" required>
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>号码</th>
+                            <th>默认</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">
+                地址
+            </h6>
+            <div class="table-responsive">
+                <table disabled id="basecase_address_list" class="table table-striped table-bordered table-hover" data-field="AddressAudits" data-class="RelationPersonAudits" data-child="AddressAudits" for="dialog_address" required>
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>地址信息</th>
+                            <th>默认</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">
+                紧急联系人
+            </h6>
+            <div class="table-responsive">
+                <table disabled id="basecase_emergency_contact_list" class="table table-striped table-bordered table-hover" data-field="EmergencyContactAudits" data-class="RelationPersonAudits" data-child="EmergencyContactAudits" for="dialog_emergency_contact" required>
+                    <thead>
+                        <tr>
+                            <th>关系</th>
+                            <th>姓名</th>
+                            <th>移动电话</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">
+                企业信息
+            </h6>
+            <div class="table-responsive">
+                <table disabled id="basecase_company_list" class="table table-striped table-bordered table-hover" data-field="RelationEnterpriseAudits" data-class="RelationPersonAudits" data-child="RelationEnterpriseAudits" for="dialog_company">
+                    <thead>
+                        <tr>
+                            <th>企业名称</th>
+                            <th>法人代表</th>
+                            <th>注册资金<span>（单位：元）</span></th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">收入证明</h6>
+            <div class="row padt10">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>收入证明（受薪人士）</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="SalaryPersonFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>收入证明（自雇有执照）</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="SelfLicenseFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>收入证明（自雇无执照）</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="SelfNonLicenseFile" data-class="RelationPersonAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>收入证明情况说明</label>
+                    <textarea class="form-control" data-field="SalaryDescription" data-class="RelationPersonAudits" rows="5" maxlength="1000" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--关系人-->
+
+<div id="dialog_facility" class="hide" dialog-title="房产信息" dialog-size="normal" for="basecase_facility_list">
+    <div class="row no-margin no-padding padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="CollateralAudits" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>类型</label>
+                    <select class="form-control" data-fill-code="Dict:-FacilityCategary" data-field="CollateralType" data-class="CollateralAudits" disabled>
+                        <option></option>
+                        @GetDictionary("-FacilityCategary")
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>产证编号</label>
+                    <input class="form-control" type="text" data-field="HouseNumber" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>房产证复印件</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="HouseFile" data-class="CollateralAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>楼盘名称</label>
+                    <input class="form-control" type="text" data-field="BuildingName" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>地址</label>
+                    <input class="form-control" type="text" data-field="Address" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>权利人</label>
+                    <input class="form-control" type="text" data-field="RightOwner" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>面积</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-field="HouseSize" data-class="CollateralAudits" valid-type="float" maxlength="100" disabled />
+                        <span class="input-group-addon">米<sup>2</sup></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>竣工年份</label>
+                    <select class="form-control" data-field="CompletionDate" data-class="CollateralAudits" disabled>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>房屋类型</label>
+                    <input class="form-control" type="text" data-field="HouseType" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>土地类型</label>
+                    <input class="form-control" type="text" data-field="LandType" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>总楼层</label>
+                    <input class="form-control" type="text" data-field="TotalHeight" data-class="CollateralAudits" maxlength="100" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--房产信息-->
+
+<div id="dialog_EnforcementPersons" class="hide" dialog-title="被执行人情况" dialog-size="normal" for="audit_EnforcementPersons_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="EnforcementPersons" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>姓名</label>
+                    <select class="form-control" id="EnforcementPersons_Person" data-field="PersonID" data-class="EnforcementPersons" disabled>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>全国被执行网情况</label>
+                    <input class="form-control" data-field="EnforcementWeb" data-class="EnforcementPersons" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>法院开庭记录</label>
+                    <input class="form-control" data-field="TrialRecord" data-class="EnforcementPersons" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>Lawxin</label>
+                    <input class="form-control" data-field="LawXP" data-class="EnforcementPersons" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>失信网失信记录</label>
+                    <input class="form-control" data-field="ShiXin" data-class="EnforcementPersons" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>社会负面新闻</label>
+                    <input class="form-control" data-field="BadNews" data-class="EnforcementPersons" maxlength="100" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--被执行人情况-->
+
+<div id="dialog_IndustryCommerceTaxs" class="hide" dialog-title="工商税务情况" dialog-size="normal" for="audit_IndustryCommerceTaxs_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="IndustryCommerceTaxs" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业名称</label>
+                    <select class="form-control" id="IndustryCommerceTaxs_Enterprise" data-field="EnterpriseID" data-class="IndustryCommerceTaxs" disabled>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业年检情况</label>
+                    <input class="form-control" type="text" data-field="AnnualInspection" data-class="IndustryCommerceTaxs" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>公司实际经营</label>
+                    <input class="form-control" type="text" data-field="ActualManagement" data-class="IndustryCommerceTaxs" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>备注</label>
+                    <textarea class="form-control" rows="5" data-field="Description" data-class="IndustryCommerceTaxs" maxlength="1000" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--工商税务情况-->
+
+<div id="dialog_HouseDetails" class="hide" dialog-title="房屋明细" dialog-size="large" for="audit_HouseDetails_list">
+    <div class="row no-margin no-padding padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h6 class="header smaller blue">
+                房产基本信息
+            </h6>
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="HouseDetails" />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>房屋名称</label>
+                    <select class="form-control" id="HouseDetails_House" data-field="CollateralID" data-class="HouseDetails" onchange="changeHouse(this);" disabled>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>产证编号</label>
+                    <input class="form-control" type="text" id="houseId" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>楼盘名称</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="BuildingName" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>地址</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="Address" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>面积</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-class="HouseDetails" data-field="HouseSize" valid-type="float" disabled />
+                        <span class="input-group-addon">米<sup>2</sup></span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>竣工年份</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="CompletionDate" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>房屋类型</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="HouseType" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>土地类型</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="LandType" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>总楼层</label>
+                    <input class="form-control" type="text" data-class="HouseDetails" data-field="TotalHeight" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>评估价</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-class="HouseDetails" data-field="AssessedValue" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>抵押情况</label>
+                    <input class="form-control" type="text" data-field="Collateral" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>房屋产调</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="HouseReportFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>限制信息</label>
+                    <input class="form-control" type="text" data-field="LimitInfo" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>备注</label>
+                    <textarea class="form-control" rows="5" data-field="Description" data-class="HouseDetails" maxlength="1000" disabled></textarea>
+                </div>
+            </div>
+
+            <div class="vspace-10"></div>
+            <h6 class="header smaller blue">
+                现场尽调信息
+            </h6>
+            <div class="row padt10">
+                <!--<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>总楼层</label>
+                    <input class="form-control" type="text" data-field="TotalHeight" data-class="HouseDetails" maxlength="100" disabled />
+                </div>-->
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>所处实际楼层</label>
+                    <input class="form-control" type="text" data-field="RealHigh" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>内部结构是否破坏</label>
+                    <select class="form-control" data-field="IsDamage" data-class="HouseDetails" disabled>
+                        <option></option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>使用情况</label>
+                    <input class="form-control" type="text" data-field="ServiceCondition" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>实际居住人员</label>
+                    <input class="form-control" type="text" data-field="RealResident" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>户口所在情况核实/抵押物户口</label>
+                    <input class="form-control" type="text" data-field="Accout" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>装修、保养、破损、违章搭建</label>
+                    <input class="form-control" type="text" data-field="RepairSituation" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>水、电、煤、电话及宽带账单核实</label>
+                    <input class="form-control" type="text" data-field="WaterPaymentCheck" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>购房发票、税单、付款凭证核实</label>
+                    <input class="form-control" type="text" data-field="TaxPaymentCheck" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>是否满二唯一</label>
+                    <select class="form-control" data-field="Man2Wei1" data-class="HouseDetails" disabled>
+                        <option> </option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>房内是否有未满18岁的小孩及已满70岁以上的老人居住</label>
+                    <select class="form-control" data-field="SpecialResident" data-class="HouseDetails" disabled>
+                        <option> </option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>其他情况描述</label>
+                    <input class="form-control" type="text" data-field="OtherDescription" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>对口学校</label>
+                    <input class="form-control" type="text" data-field="SchoolInfo" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>医院</label>
+                    <input class="form-control" type="text" data-field="HospitalInfo" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>周边交通</label>
+                    <input class="form-control" type="text" data-field="TrafficInfo" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>超市/商场</label>
+                    <input class="form-control" type="text" data-field="Supermarket" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>休闲娱乐</label>
+                    <input class="form-control" type="text" data-field="Recreation" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>不利场所</label>
+                    <input class="form-control" type="text" data-field="NegativeSite" data-class="HouseDetails" maxlength="100" disabled />
+                </div>
+            </div>
+
+            <div class="vspace-10"></div>
+            <h6 class="header smaller blue">
+                估价来源
+            </h6>
+            <div class="table-responsive">
+                <table disabled id="audit_EstimateSources_list" class="table table-striped table-bordered table-hover" data-field="EstimateSources" data-class="HouseDetails" data-child="EstimateSources" for="dialog_EstimateSources">
+                    <thead>
+                        <tr>
+                            <th>估价单位名称</th>
+                            <th>估价<span>（单位：元）</span></th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="vspace-10"></div>
+
+            <h6 class="header smaller blue">
+                房屋照片
+            </h6>
+            <div class="row padt10">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>小区</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="VillagePhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>大门、门牌</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="MainGatePhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>客厅</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="ParlourPhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>卧室</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="BedroomPhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>厨房</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="KitchenRoomPhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>卫生间</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="ToiletPhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+                    <label>其他</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="HousePhotoFile" data-class="HouseDetails" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--房屋明细-->
+
+<div id="dialog_IndividualCredits" class="hide" dialog-title="个人资信情况" dialog-size="normal" for="audit_IndividualCredits_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="IndividualCredits" maxlength="100" />
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>姓名</label>
+                    <select class="form-control" id="IndividualCredits_Person" data-field="PersonID" data-class="IndividualCredits" maxlength="100" disabled>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>信用卡</label>
+                    <textarea class="form-control" data-field="CreditCard" data-class="IndividualCredits" rows="5" maxlength="1000" disabled></textarea>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>房贷、车贷</label>
+                    <textarea class="form-control" data-field="CreditInfo" data-class="IndividualCredits" rows="5" maxlength="1000" disabled></textarea>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>其他贷款</label>
+                    <textarea class="form-control" data-field="OtherCredit" data-class="IndividualCredits" rows="5" maxlength="1000" disabled></textarea>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>逾期情况</label>
+                    <textarea class="form-control" data-field="OverdueInfo" data-class="IndividualCredits" rows="5" maxlength="1000" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--个人资信情况-->
+
+<div id="dialog_EnterpriseCredits" class="hide" dialog-title="企业资信情况" dialog-size="normal" for="audit_EnterpriseCredits_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="EnterpriseCredits" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业名称</label>
+                    <select class="form-control" id="EnterpriseCredits_Enterprise" data-field="EnterpriseID" data-class="EnterpriseCredits" disabled>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业贷款卡</label>
+                    <input class="form-control" type="text" data-field="CreditCard" data-class="EnterpriseCredits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业负债信息</label>
+                    <input class="form-control" type="text" data-field="CreditInfo" data-class="EnterpriseCredits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>股东情况</label>
+                    <textarea class="form-control" rows="5" data-class="EnterpriseCredits" data-field="ShareholderDetails" maxlength="1000" disabled></textarea>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>其他情况说明</label>
+                    <textarea class="form-control" rows="5" data-class="EnterpriseCredits" data-field="OtherDetailes" maxlength="1000" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--企业资信情况-->
+
+<div id="dialog_contact" class="hide" dialog-title="联系方式" dialog-size="normal" for="basecase_contact_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="ContactAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>类型</label>
+                    <select class="form-control" data-fill-code="Dict:-ContactType" data-class="ContactAudits" data-field="ContactType" disabled>
+                        <option></option>
+                        @GetDictionary("-ContactType")
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>号码</label>
+                    <input class="form-control" type="text" data-class="ContactAudits" data-field="ContactNumber" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>默认</label>
+                    <input class="form-control" type="radio" data-class="ContactAudits" data-field="IsDefault" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--联系方式-->
+
+<div id="dialog_address" class="hide" dialog-title="地址" dialog-size="normal" for="basecase_address_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="AddressAudits" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>类型</label>
+                    <select class="form-control" data-fill-code="Dict:-AddressType" data-class="AddressAudits" data-field="AddressType" disabled>
+                        <option></option>
+                        @GetDictionary("-AddressType")
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>地址信息</label>
+                    <input class="form-control" type="text" data-class="AddressAudits" data-field="AddressInfo" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>默认</label>
+                    <input class="form-control" type="radio" data-class="AddressAudits" data-field="IsDefault" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--地址-->
+
+<div id="dialog_emergency_contact" class="hide" dialog-title="紧急联系人" dialog-size="normal" for="basecase_emergency_contact_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="EmergencyContactAudits" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>关系</label>
+                    <select class="form-control" data-fill-code="Dict:-EmergencyType" data-field="ContactType" data-class="EmergencyContactAudits" disabled>
+                        <option></option>
+                        @GetDictionary("-EmergencyType")
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>姓名</label>
+                    <input class="form-control" type="text" data-field="Name" data-class="EmergencyContactAudits" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>移动电话</label>
+                    <input class="form-control" type="text" data-field="ContactNumber" data-class="EmergencyContactAudits" maxlength="100" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--紧急联系人-->
+
+<div id="dialog_company" class="hide" dialog-title="企业信息" dialog-size="normal" for="basecase_company_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="RelationEnterpriseAudits" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业名称</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="EnterpriseName" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>注册号/统一社会信用代码</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="RegisterNumber" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业描述</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="EnterpriseDes" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>法人代表</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="LegalPerson" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业地址</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="Address" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>注册资金</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="RegisteredCapital" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>主营业务</label>
+                    <input class="form-control" type="text" data-class="RelationEnterpriseAudits" data-field="MainBusiness" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业征信报告</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="IndividualFile" data-class="RelationEnterpriseAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>企业银行流水</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="BankFlowFile" data-class="RelationEnterpriseAudits" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--企业信息-->
+
+<div id="dialog_EstimateSources" class="hide" dialog-title="估价来源" dialog-size="normal" for="audit_EstimateSources_list">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="EstimateSources" maxlength="100" />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>估价单位名称</label>
+                    <input class="form-control" type="text" data-field="EstimateInstitutions" data-class="EstimateSources" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>估价</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-field="RushEstimate" data-class="EstimateSources" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>提供信息人姓名</label>
+                    <input class="form-control" type="text" data-field="InformationProvider" data-class="EstimateSources" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>联系电话</label>
+                    <input class="form-control" type="text" data-field="ContactNumber" data-class="EstimateSources" maxlength="100" disabled />
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>凭证</label>
+                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    <div class="hide" data-field="CertificateFile" data-class="EstimateSources" data-type="files"><ul class="fileupload_list"></ul></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--估价来源-->

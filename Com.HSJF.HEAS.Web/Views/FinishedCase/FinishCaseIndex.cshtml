@@ -1,0 +1,310 @@
+﻿﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Biz.BaseCaseListViewModel>
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <i class="icon-file"></i>
+            &nbsp;案件结清
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="widget-box">
+        <div class="widget-header widget-header-flat">
+            <h6><i class="icon-filter"></i>筛选条件</h6>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main no-padding">
+                <form>
+                    <fieldset id="fieldset_jinjian_list">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 form-group">
+                                <label>案件编号</label>
+                                <input id="CaseNum" class="form-control" type="text" />
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 form-group">
+                                <label>借款人姓名</label>
+                                <input id="txtBrrownName" class="form-control" type="text" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions center">
+                        @*<button class="btn btn-sm btn-default" type="button" for="fieldset_jinjian_list" onclick="reset_filter($(this));">清空</button>*@
+                        <button class="btn btn-sm btn-success" type="button" onclick="queryCase();">查询</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="vspace-4"></div>
+    <div class="table-responsive">
+    	<div id="jinjian_list_wrapper" class="dataTables_wrapper" role="grid">
+	    	<div class="row">
+	    		<div class="col-sm-6">
+	    			<div id="jinjian_list_length" class="dataTables_length">
+	    				<label>每页显示 
+	    					<select size="1" name="jinjian_list_length" aria-controls="jinjian_list" id="PageSize" onchange="changePage(this);">
+	    						<option value="10" selected="selected">10</option>
+	    						<option value="25">25</option>
+	    						<option value="50">50</option>
+	    						<option value="100">100</option>
+	    					</select> 条记录
+	    				</label>
+	    			</div>
+	    		</div>
+	    		<div class="col-sm-6">
+	    			<div class="dataTables_filter" id="jinjian_list_filter">
+	    				<label>搜索: <input type="text" aria-controls="jinjian_list"></label>
+	    			</div>
+	    		</div>
+	    	</div>
+	        <table id="jinjian_list" class="table table-striped table-bordered table-hover">
+	            <thead>
+	            	<tr>
+	            		<td>业务编号</td>
+	            		<td>借款人姓名</td>
+	            		<td>申请金额（单位：元）</td>
+	            		<td>创建时间</td>
+	            		<td>案件状态</td>
+	            		<td>操作</td>
+	            	</tr>
+	            </thead>
+	         	<tbody>
+	            </tbody>
+	        </table>
+	        <div class="row">
+	        	<div class="col-sm-6">
+	        		<div class="dataTables_info" id="jinjian_list_info">共 <font id="Total"></font> 条记录,共 <font id="TotalPage"></font> 页</div>
+	        	</div>
+	        	<div class="col-sm-6">
+	        		<div class="dataTables_paginate paging_bootstrap">
+	        			<ul class="pagination">
+	        				<li class="prev" id="head"><a><i class="icon-double-angle-left"></i></a></li>
+	        				<li class="prev disabled" id="prev"><a><i class="icon-angle-left"></i></a></li>
+	        				<li><input type="text" id="page" value="1" maxlength="3"/></li>
+	        				<li class="next disabled" id="next"><a><i class="icon-angle-right"></i></a></li>
+	        				<li class="next" id="foot"><a><i class="icon-double-angle-right"></i></a></li>
+	        				<li>
+	        					&nbsp;&nbsp;
+	        					跳至
+	        					<select class="pages" onchange="tiaozhi(this);">
+	        						
+	        					</select>
+	        				</li>
+	        			</ul>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+    </div>
+</div><!-- /.page-content -->    
+    <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript">
+        var baseCaseID = null;
+
+
+//      $('#jinjian_list').DataTable({
+//          "bSort": true,
+//          "aaSorting": [],
+//          "aoColumns": [
+//              null,
+//              null,
+//              null,
+//              { "sClass": "hidden-991" },
+//              null,
+//              { "bSortable": false }
+//          ]
+//      });
+    var DeleteBaseCase = function (itemID) {
+        if (itemID) {
+            ConfirmBox("记录删除后不可恢复，是否确定？", function () {
+                AjaxMethod("post", "/Biz/DeleteBaseCase/" + itemID, function (r) {
+                    var tempURL = window.location.href;
+                    if (tempURL.indexOf("?") >= 0) {
+                        window.location = tempURL + "&status=ds";
+                    }
+                    else {
+                        window.location = tempURL + "?status=ds";
+                    }
+                    hideLoading();
+                }, true);
+            });
+        }
+    };
+	function tiaozhi(obj){
+		var obj = {PageIndex:Number($(obj).val()),
+			PageSize:Number($("#PageSize").val()),
+			BorrowerName:$("#txtBrrownName").val(),
+			CaseNum:$("#CaseNum").val(),
+		};
+        query(obj);
+	}
+//  function queryCase() {
+//      var casestatus = $("#drpCaseStatus").val();
+//      var borrownname = $("#txtBrrownName").val();
+//      var caseNum = $("#CaseNum").val();
+//      $.post("/Biz/GetBizIndex", { caseStatus: casestatus, borrownName: borrownname, CaseNum: caseNum, PageIndex: 2 }, function (r) {
+//          console.log(r);
+//      });
+//  }
+
+    function queryCase() {
+        var obj = {PageIndex:1,
+			PageSize:Number($("#PageSize").val()),
+			BorrowerName:$("#txtBrrownName").val(),
+			CaseNum:$("#CaseNum").val(),
+		};
+        query(obj);
+    }
+    function changePage(obj){
+    	var obj = {PageIndex:1,
+			PageSize:Number($(obj).val()),
+			BorrowerName:$("#txtBrrownName").val(),
+			CaseNum:$("#CaseNum").val(),
+		};
+        query(obj);
+    }
+    function query(obj){
+    	$.ajax({
+    		url:"/FinishedCase/GetFinishedCases",
+    		data:obj,
+    		type:"post",
+    		dataType:"json",
+    		success:function(data){
+    			var htm = "";
+    			for(var i = 0;i<data.Data.length;i++){
+    				var status = "";
+    				var version = "";
+    				var caseNum = "";
+    				var borrowerName = "";
+    				var loanAmount = "";
+    				var time = dateFormat(data.Data[i].CreateTime);
+    				if(data.Data[i].CaseStatusText){
+    					status = "<font>"+data.Data[i].CaseStatusText+"</font>";
+    				}else{
+    					status = "<font>未提交</font>";
+    				}
+    				if(data.Data[i].Version == 0){
+    					version = '<a class="red" href="javascript:;" onclick="DeleteBaseCase(\''+data.Data[i].ID+'\');">'+
+                                    '<i class="icon-trash bigger-130" tooltip="true" title="删除"></i>'
+                                '</a>';
+    				}
+    				if(data.Data[i].CaseNum==null){
+    					caseNum = "";
+    				}else{
+    					caseNum = data.Data[i].CaseNum;
+    				}
+    				if(data.Data[i].BorrowerName == null){
+    					borrowerName = "";
+    				}else{
+    					borrowerName = data.Data[i].BorrowerName;
+    				}
+    				if(data.Data[i].LoanAmount == null){
+    					loanAmount = "";
+    				}else{
+    					loanAmount = data.Data[i].LoanAmount;
+    				}
+    				htm = htm + "<tr><td>"+caseNum+"</td>"+
+    						"<td>"+borrowerName+"</td>"+
+    						"<td>"+loanAmount+"</td>"+
+    						"<td>"+time+"</td>"+
+    						"<td>"+status+"</td>"+
+    						"<td><div class='action-buttons'>"+
+    						"<a class='green' href='/FinishedCase/ViewFinishedCase/"+data.Data[i].ID+"' target='_blank'>"+
+                                "<i class='icon-zoom-in bigger-130' tooltip='true' title='详情'></i>"+
+                            "</a>"+version+"</td></tr>";
+    			}
+    			$("#jinjian_list").find("tbody").html(htm);
+    			$("#Total").html(data.Total);
+    			$("#TotalPage").html(data.TotalPage);
+    			$("#page").val(data.PageIndex);
+    			if(data.PageIndex == 1){
+    				$("#prev").attr("disabled",true).addClass("disabled");
+    			}else{
+    				$("#prev").removeAttr("disabled").removeClass("disabled");
+    			}
+    			if(data.PageIndex == data.TotalPage){
+    				$("#next").attr("disabled",true).addClass("disabled");
+    				if(data.TotalPage == 1 ||data.TotalPage == 0){
+    					$("#prev").attr("disabled",true).addClass("disabled");
+    				}
+    			}else{
+    				$("#next").removeAttr("disabled").removeClass("disabled");
+    			}
+    			var pagehtml = "";
+    			if(data.TotalPage!=0){
+    				for(var i = 0;i<data.TotalPage;i++){
+    					if(data.PageIndex == i+1 ){
+    						pagehtml = pagehtml + "<option value='"+(i+1)+"' selected>"+(i+1)*Number($("#PageSize").val())+"</option>"
+    					}else{
+    						pagehtml = pagehtml + "<option value='"+(i+1)+"'>"+(i+1)*Number($("#PageSize").val())+"</option>"
+    					}
+    				}
+    			}
+    			$(".pages").html(pagehtml);
+    			$("#head").attr("onclick","tohead();");
+    			$("#foot").attr("onclick","tofoot();");
+    		},
+    		error:function(data){
+    			if(data.status==200){
+					MessageBox("登录超时，请重新登录",function(){
+						window.location = "/Home/Failed";
+					});
+				}else{
+					MessageBox("请求超时",function(){
+						window.location = "/Home/Failed";
+					});
+				}
+    		}
+    	})
+    }
+	$(document).ready(function(){
+		var obj = {PageIndex:Number($("#page").val()),
+			PageSize:Number($("#PageSize").val()),
+			BorrowerName:$("#txtBrrownName").val(),
+			CaseNum:$("#CaseNum").val(),
+		};
+		query(obj);
+		$("#page").keyup(function(e){
+			var str = $(this).val();
+			if($(this).val().length==1){
+				$(this).val($(this).val().replace(/[^1-9]/g,''));
+			}else{
+				$(this).val($(this).val().replace(/\D/g,''));
+			}
+			if(e.which==13){
+				obj = {PageIndex:Number($("#page").val()),
+					PageSize:Number($("#PageSize").val()),
+					BorrowerName:$("#txtBrrownName").val(),
+					CaseNum:$("#CaseNum").val(),
+				}
+				query(obj);
+			}
+			if(Number($(this).val())>Number($("#TotalPage").html())){
+				$(this).val($(this).val().substring(0,$(this).val().length-1));
+			}
+		});
+		$("#prev").click(function(){
+			if($("#page").val()!=1){
+				obj = {PageIndex:Number($("#page").val())-1,
+					PageSize:Number($("#PageSize").val()),
+					BorrowerName:$("#txtBrrownName").val(),
+					CaseNum:$("#CaseNum").val(),
+				};
+				query(obj);
+			}
+		});
+		$("#next").click(function(){
+			if($("#page").val()!=$("#TotalPage").html()){
+				obj = {PageIndex:Number($("#page").val())+1,
+					PageSize:Number($("#PageSize").val()),
+					BorrowerName:$("#txtBrrownName").val(),
+					CaseNum:$("#CaseNum").val(),
+				};
+				query(obj);
+			}
+		});
+	});
+</script>

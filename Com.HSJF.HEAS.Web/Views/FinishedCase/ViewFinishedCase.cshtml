@@ -1,0 +1,401 @@
+﻿@{
+    ViewBag.Title = "ViewFinishedCase";
+}
+
+<input id="FinishedCase" type="hidden" value="@Model.Id" />
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <!--<a class="label label-lg label-light arrowed" href="/Biz/BaseCaseIndex/">返回</a>-->
+            &nbsp;
+            案件结清
+            <small>
+                <i class="icon-double-angle-right"></i>
+                详情
+            </small>
+        </h1>
+    </div>
+    <div class="row padt10">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a data-toggle="tab" href="#Lending">放款</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="Lending" class="tab-pane active">
+                        <h6 class="header smaller blue">业务信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group hide">
+                                <label>ID</label>
+                                <input class="form-control" type="text" data-field="ID" data-class="Lending" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>业务编号</label>
+                                <input class="form-control" type="text" value="@Model.CaseNum" disabled />
+                                <input class="form-control" type="hidden" data-field="CaseNum" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>案件状态</label>
+                                <input class="form-control" type="text" value="@Model.CaseStatusText" disabled />
+                                <input class="form-control" type="hidden" data-field="CaseStatusText" data-class="Lending" disabled />
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">放款信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款时间 <span class="red">*</span></label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="LendTime" data-class="Lending" valid-type="date" required />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款证明 <span class="red">*</span></label>
+                                <label class="form-control control-label hs-clickable text-center" id="prove" onclick="fileUploadFunction(this);">点击上传附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="LendFile" data-class="Lending" data-type="files" required><ul class="fileupload_list"></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">客户信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>客户姓名</label>
+                                <input class="form-control" type="text" data-field="Borrower" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>联系电话</label>
+                                <input class="form-control" type="text" data-field="ContactNumber" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>接单人</label>
+                                <input class="form-control" type="text" data-field="SalesIDText" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>接单日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="CreateTime" data-class="Lending" valid-type="date" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户名称</label>
+                                <input class="form-control" type="text" data-field="OpeningSite" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户开户行</label>
+                                <input class="form-control" type="text" data-field="OpeningBank" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户账号</label>
+                                <input class="form-control" type="text" data-field="BankCard" data-class="Lending" disabled />
+                            </div>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">放款及返利明细</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ServiceCharge" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费点数</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ServiceChargeRate" data-class="Lending" disabled onkeyup="formoney(event,this,2,100)" maxlength="10" />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>客户已支付金额（定金）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="Deposit" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>客户支付定金日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="DepositDate" data-class="Lending" valid-type="date" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>是否为活动期间的优惠利率</label>
+                                <select class="form-control" data-field="IsActivitieRate" data-class="Lending" disabled>
+                                    <option value=""></option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">
+                            合作渠道
+                        </h6>
+                        <div class="table-responsive">
+                            <table id="dialog_hezuo_table" class="table table-striped table-bordered table-hover" data-field="Introducer" data-class="Lending" data-child="Introducer" for="dialog_hezuo">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>返利金额（单位：元）</th>
+                                        <th>返利百分比（单位：%）</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">代收及公司承担的费用</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>跟单人</label>
+                                <input class="form-control" type="text" data-field="Merchandiser" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>出借人姓名</label>
+                                <input class="form-control" type="text" data-field="LenderName" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>代收公证费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="DebitNotarizationCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>代收评估费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="DebitEvaluationCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>代收担保费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="DebitGuaranteeCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>代收保险费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="DebitInsuranceCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>代收其他</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="DebitOtherCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>保证金</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="EarnestMoney" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>外访费（下户费）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="OutboundCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>公司承担的公证费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="LevyNotarizationCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>公司承担的产调费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="LevyAssetsSurveyCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>公司承担的信用报告费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="LevyCreditReportCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>公司承担的其他费用</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="LevyOtherCost" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">成交产品</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>案件模式</label>
+                                <select class="form-control" data-fill-code="Dict:-CaseMode" data-field="CaseMode" data-class="Lending" disabled>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款金额</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ContractAmount" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款机构</label>
+                                <input class="form-control" type="text" data-field="ThirdPartyText" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>利率</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="AuditRate" data-class="Lending" disabled onkeyup="formoney(event,this,2,100)" maxlength="10" />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>利息</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="MonthlyInterest" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>实收利息（不退客户）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ActualInterest" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>预收利息（可退客户）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="AdvanceInterest" data-class="Lending" disabled onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="LendingDate" data-class="Lending" valid-type="date" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>回款日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="PaymentDate" data-class="Lending" valid-type="date" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>借款期限 </label>
+                                <select class="form-control" data-fill-code="Dict:-LoanTerm" data-field="AuditTerm" data-class="Lending" disabled>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog_hezuo" class="hide" dialog-title="合作渠道" dialog-size="normal" for="dialog_hezuo_table">
+    <div class="row no-padding no-margin padt10">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row padt10">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group hide">
+                    <label>ID</label>
+                    <input class="form-control" type="text" data-field="ID" data-class="Introducer" disabled/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>名称 <span class="red">*</span></label>
+                    <input class="form-control" type="text" data-field="Name" data-class="Introducer" required disabled/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>联系电话 <span class="red">*</span></label>
+                    <input class="form-control" type="text" data-field="Contract" data-class="Introducer" required disabled/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>返利金额</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-field="RebateAmmount" data-class="Introducer" onkeyup="formoney(event,this,2)" maxlength="20" disabled/>
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>返利百分比</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-field="RebateRate" data-class="Introducer" onkeyup="formoney(event,this,2,100)" maxlength="10" disabled/>
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>账号</label>
+                    <input class="form-control" type="text" data-field="Account" data-class="Introducer" disabled/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <label>开户行</label>
+                    <input class="form-control" type="text" data-field="AccountBank" data-class="Introducer" disabled/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- #dialog-message -->
+
+
+<script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript">
+
+    jQuery(function ($) {
+        //加载页面数据
+        LoadPageData();
+    });
+
+    //加载页面数据
+    var LoadPageData = function () {
+        var bc_id = $("#FinishedCase").val();
+
+        showLoading();
+        AjaxMethod("get", "/FinishedCase/GetFinishedCase", { id: bc_id }, function (r) {
+            SetJsonData(r["Data"], "Lending");
+            $('[data-field="LendTime"]').attr("disabled",true);
+            $('#prove').attr("disabled",true);
+            hideLoading();
+        }, false);
+    };
+
+</script>

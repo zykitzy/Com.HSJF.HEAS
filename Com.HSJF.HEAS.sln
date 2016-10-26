@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.HSJF.Infrastructure", "Com.HSJF.Infrastructure\Com.HSJF.Infrastructure.csproj", "{3913DE7C-C8A5-480A-80F1-4E1A8512518A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.HSJF.Framework", "Com.HSJF.Framework\Com.HSJF.Framework.csproj", "{E9306384-DC9F-4E61-B3A2-458ACC575650}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.HSJF.HEAS.BLL", "Com.HSJF.HEAS.BLL\Com.HSJF.HEAS.BLL\Com.HSJF.HEAS.BLL.csproj", "{8B440174-DDC9-45A6-9D98-AD5E272BE411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.HSJF.HEAS.Test", "Com.HSJF.HEAS.Test\Com.HSJF.HEAS.Test.csproj", "{E6E0700D-88BF-4A3A-BAF3-78901F1EF91B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.HSJF.HEAS.Web", "Com.HSJF.HEAS.Web\Com.HSJF.HEAS.Web.csproj", "{195967DF-A3ED-41BA-AE88-F5CCF3E10CD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3913DE7C-C8A5-480A-80F1-4E1A8512518A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3913DE7C-C8A5-480A-80F1-4E1A8512518A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3913DE7C-C8A5-480A-80F1-4E1A8512518A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3913DE7C-C8A5-480A-80F1-4E1A8512518A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9306384-DC9F-4E61-B3A2-458ACC575650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9306384-DC9F-4E61-B3A2-458ACC575650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9306384-DC9F-4E61-B3A2-458ACC575650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9306384-DC9F-4E61-B3A2-458ACC575650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B440174-DDC9-45A6-9D98-AD5E272BE411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B440174-DDC9-45A6-9D98-AD5E272BE411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B440174-DDC9-45A6-9D98-AD5E272BE411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B440174-DDC9-45A6-9D98-AD5E272BE411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E0700D-88BF-4A3A-BAF3-78901F1EF91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E0700D-88BF-4A3A-BAF3-78901F1EF91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E0700D-88BF-4A3A-BAF3-78901F1EF91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E0700D-88BF-4A3A-BAF3-78901F1EF91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{195967DF-A3ED-41BA-AE88-F5CCF3E10CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{195967DF-A3ED-41BA-AE88-F5CCF3E10CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{195967DF-A3ED-41BA-AE88-F5CCF3E10CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{195967DF-A3ED-41BA-AE88-F5CCF3E10CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal

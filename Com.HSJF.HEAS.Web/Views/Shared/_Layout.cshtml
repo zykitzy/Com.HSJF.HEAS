@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>泓申金服贷前审批系统</title>
+
+    <!-- basic styles -->
+    <link rel="stylesheet" href="../../css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/jquery-ui-1.10.3.full.min.css" />
+
+    <link rel="stylesheet" href="../../css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="../../css/ace-skins.min.css" />
+    <link rel="stylesheet" href="../../css/chosen.css" />
+    <link rel="stylesheet" href="../../css/jquery.gritter.css" />
+
+    <link rel="stylesheet" href="../../css/jquery.fileupload.css" />
+    <link rel="stylesheet" href="../../css/jquery.fileupload-ui.css" />
+
+    <link rel="stylesheet" href="../../css/ace.min.css" />
+
+    <link rel="stylesheet" href="../../css/hs-all.css" />
+    <link rel="stylesheet" href="../../css/hs-page-home.css" />
+    <link rel="stylesheet" href="../../css/daterangepicker.css" />
+
+    <!-- Elements Styles -->
+    <!-- basic scripts -->
+    <script type="text/javascript" src="../../js/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui-1.10.3.full.min.js"></script>
+    <script type="text/javascript" src="../../js/const.js"></script>
+
+    <!-- asset scripts -->
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="../../js/fuelux/fuelux.tree.min.js"></script>
+    <script type="text/javascript" src="../../js/chosen.jquery.min.js"></script>
+
+    <!-- ace scripts -->
+    <script type="text/javascript" src="../../js/ace.min.js"></script>
+    <script type="text/javascript" src="../../js/ace-extra.min.js"></script>
+    <script type="text/javascript" src="../../js/ace-elements.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.gritter.min.js"></script>
+
+    <!-- file upload -->
+    <script type="text/javascript" src="../../js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="../../js/jquery.fileupload-ui.js"></script>
+    <script type="text/javascript" src="../../js/jquery.fileupload-jquery-ui.js"></script>
+    <script type="text/javascript" src="../../js/jquery.fileupload-process.js"></script>
+    <script type="text/javascript" src="../../js/jquery.iframe-transport.js"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="../../js/common.js?version=20160930001"></script>
+
+    <!----AJAX--->
+    <script type="text/javascript" src="../../Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!----daterangepicker--->
+    <script type="text/javascript" src="../../js/moment.min.js"></script>
+    <script type="text/javascript" src="../../js/daterangepicker.min.js"></script>
+
+    <!-- menu -->
+    <script type="text/javascript" src="../../js/address_url.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var pStatus = $_GET["status"];
+
+            if (pStatus == "ss") {
+                showAlert("保存成功");
+            }
+            else if (pStatus == "sb") {
+                showAlert("提交成功");
+            }
+            else if (pStatus == "ds") {
+                showAlert("删除成功", "error");
+            }
+            else if (pStatus == "ap") {
+                showAlert("审批通过");
+            }
+            else if (pStatus == "rb") {
+                showAlert("审批退回", "error");
+            }
+            else if (pStatus == "rj") {
+                showAlert("审批拒绝", "error");
+            }
+
+            var tabindex = $_GET["tabindex"];
+            $("#myTab li").eq(tabindex).find("a").click();
+            $(".fileupload").change(function () {
+                $(this).attr("number", Number($(this).attr("number")) + 1);
+            });
+            //          $(".ov_hidd").click(function(){
+            //          	$(".fileinput-button").click();
+            //          });
+        });
+    </script>
+</head>
+<body>
+    <input id="HEAS_User_DisplayName" class="hide" type="text" value='@(((Com.HSJF.Infrastructure.Identity.Model.User)ViewBag.CurrentUser).DisplayName)' />
+    <input id="HEAS_User_ID" class="hide" type="text" value='@(((Com.HSJF.Infrastructure.Identity.Model.User)ViewBag.CurrentUser).Id)' />
+    <div class="navbar navbar-default" id="navbar">
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="/Home/Index" class="navbar-brand">
+                    <small>
+                        <img class="header-logo-s" src="../../img/hs_logo_white_s.png" alt="泓申金服" />
+                        泓申金服贷前审批系统
+                    </small>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+        </div><!-- /.container -->
+    </div>
+
+    <div class="main-container" id="main-container">
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
+
+            <div class="sidebar" id="sidebar">
+                @Html.Action("CurrentMenu", "Menu")
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                </div>
+            </div>
+
+            <div id="hs-page-content" class="main-content">
+                @RenderBody()
+            </div><!-- /.main-content -->
+        </div><!-- /.main-container -->
+    </div>
+    @RenderSection("scripts", required: false)
+
+    <div id="dialog-message-box" class="hide">
+        <p style="padding:10px; text-align:center;"></p>
+    </div><!-- #dialog-message -->
+
+    <div id="dialog-confirm-box" class="hide">
+        <p style="padding:10px; text-align:center;"></p>
+    </div><!-- #dialog-message -->
+
+    <div id="file_upload_box" class="hide" dialog-title="文件上传" dialog-size="normal">
+        <div class="vspace-10"></div>
+        <div class="row no-padding no-margin">
+            <div id="file_upload_box_content" class="col-xs-10 col-xs-offset-1">
+                <div class="ov_hidd fileinput-button file_btn">
+                    <div class="btn btn-success">
+                        <span>选择文件</span>
+                        <input type="file" name="file" multiple=""
+                               accept=".jpg,.jpeg,.png,.gif,.pdf"
+                               class='fileupload' onchange="filecheck(this)" number="0">
+                    </div>
+                </div>
+                <div class="vspace-10 clear"></div>
+                <ul class="fileupload_list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="hs-cover" class="hide">
+        <div id="hs-waiting">
+            <i class="icon-spinner icon-spin orange bigger-125"></i>
+            &nbsp;
+            数据加载中……
+        </div>
+    </div>
+    <div id="picture_preview">
+    	<input type="hidden" id="preview_type"/>
+    	<input type="hidden" id="preview_width"/>
+    	<input type="hidden" id="preview_height"/>
+    	<div class="close_preview" onclick="close_preview();"><i class="icon-remove"></i></div>
+    	<div id="picture_name"></div>
+    	<div id="div_iframe">
+    		<iframe src="" id="picture_iframe" scrolling="no"></iframe>
+    	</div>
+    	<span class="" id="preview_picture" onclick="watch(this);"><</span>
+    	<span class="" id="next_picture" onclick="watch(this);">></span>
+    </div>
+</body>
+</html>

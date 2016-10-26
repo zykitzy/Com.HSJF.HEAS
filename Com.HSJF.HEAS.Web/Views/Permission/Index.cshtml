@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.CheckBoxListModel>
+
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="row no-padding no-margin">
+    <div class="col-xs-6 col-xs-offset-3 hs-checkbox-list">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.CheckBoxList("Permission", Model, null, 4)
+    </div>
+    <button onclick="SavePermission()">保存权限</button>
+</div>
+
+<script type="text/javascript">
+    function SavePermission() {
+        var list = GetPermission();
+        $.post("/Permission/EditPermission", { id: $("#hidroleid").val(), perid: list }, function (r) {
+            if (r != null) {
+                window.location.reload();
+            }
+            else {
+                alert("无法保存！");
+            }
+        });
+
+    }
+
+
+    function GetPermission() {
+        var plist = $("input[name='Permission'][type='checkbox']:checked");
+        var pstr = "";
+        for (var i = 0; i < plist.length; i++) {
+            pstr += $(plist[i]).val();
+            pstr += ",";
+        }
+        return pstr;
+    }
+</script>

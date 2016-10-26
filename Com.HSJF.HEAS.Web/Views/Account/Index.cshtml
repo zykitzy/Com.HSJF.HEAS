@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Account.UserViewModel>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a href="/Home/Index/"><i class="icon-home"></i></a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;用户管理
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="hs-tool-bar">
+        <button class="btn btn-xs btn-success" onclick="javascript:window.location.href = '/Account/Register/'">
+            <i class="icon-plus-sign"></i>
+            新增
+        </button>
+    </div>
+    <div class="vspace-4"></div>
+
+    <div class="table-responsive">
+        <table id="user_table" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.LoginName)</th>
+                    <th>@Html.DisplayNameFor(model => model.DisplayName)</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoginName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DisplayName)
+                        </td>
+                        <td>
+                            <a class="blue" href="/Account/EditUser/@item.ID">
+                                <i class="icon-pencil bigger-130" tooltip="true" title="修改"></i>
+                            </a>
+                            &nbsp;
+                            <a class="orange" href="javascript:ChangeRole('@item.ID');">
+                                <i class="icon-refresh bigger-130" tooltip="true" title="修改角色"></i>
+                            </a>
+                            &nbsp;
+                            <a class="orange" href="javascript:ResetPassword('@item.ID');">
+                                <i class="icon-refresh bigger-130" tooltip="true" title="重置密码"></i>
+                            </a>
+                            &nbsp;
+                            <a class="green" href="/Account/ChangePassword/@item.ID">
+                                <i class="icon-edit bigger-130" tooltip="true" title="修改密码"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="divrole"></div>
+<input type="hidden" id="hiduserid" />
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#user_table').DataTable({
+            "bSort": true,
+            "aaSorting": []
+        });
+    });
+
+    function ChangeRole(id) {
+        $("#divrole").html("");
+        $("#hiduserid").val(id);
+        $.get("/Role/ChangeRoleIndex", { id: id }, function (r) {
+            if (r != null) {
+                $("#divrole").html(r);
+            }
+        });
+    }
+
+    function ResetPassword(uid) {
+        ConfirmBox("是否确定重置此账号的密码？", function () {
+            $.get("/Account/ResetPassword", { id: uid }, function (r) {
+                if (r != null) {
+                    window.location = "/Account/Index?status=ss";
+                }
+                else {
+                    alert("无法重置密码!");
+                }
+            });
+        });
+    }
+
+
+</script>

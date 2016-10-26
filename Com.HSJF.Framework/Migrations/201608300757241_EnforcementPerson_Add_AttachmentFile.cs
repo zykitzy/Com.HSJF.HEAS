@@ -1,0 +1,18 @@
+namespace Com.HSJF.Framework.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class EnforcementPerson_Add_AttachmentFile : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("audit.EnforcementPerson", "AttachmentFile", c => c.String());
+        }
+        
+        public override void Down()
+        {
+            DropColumn("audit.EnforcementPerson", "AttachmentFile");
+        }
+    }
+}

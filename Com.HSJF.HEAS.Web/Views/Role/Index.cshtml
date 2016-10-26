@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Role.RoleViewModel>
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Account/Index">返回</a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;角色管理
+            </small>
+        </h1>
+    </div>
+    <div class="hs-tool-bar">
+	    <button class="btn btn-xs btn-success" onclick="javascript:window.location.href = '/Role/AddRole'">
+	        <i class="icon-plus-sign"></i>
+	        新增
+	    </button>
+	</div>
+	<div class="vspace-4"></div>
+	<div class="table-responsive">
+        <table id="user_table" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            	@foreach (var item in Model)
+			    {
+			        <tr>
+			            <td>
+			                @Html.DisplayFor(modelItem => item.Name)
+			            </td>
+			            <td>
+			                @Html.DisplayFor(modelItem => item.Description)
+			            </td>
+			            <td>
+			            	<a class="blue" href="/Role/EditRole/@item.ID">
+                                <i class="icon-pencil bigger-130" tooltip="true" title="修改"></i>
+                            </a>
+                            <a class="red" href="javascript:;" onclick="DeleteBaseCase('@item.ID');">
+			                	<i class="icon-trash bigger-130" tooltip="true" title="删除"></i>
+			                </a>
+			                <a class="orange" href="javascript:ShowPermission('@item.ID');">
+                                <i class="icon-eye-open bigger-130" tooltip="true" title="编辑权限"></i>
+                            </a>
+                            <a class="green" href="javascript:ChangeDataPermission('@item.ID');">
+                                <i class="icon-edit bigger-130" tooltip="true" title="修改数据权限"></i>
+                            </a>
+                            
+			                @*@Html.ActionLink("Edit", "EditRole", new { id = item.ID }) |*@
+			                
+			                @*<a href="#" onclick="DeleteRole('@item.ID');">Delete</a>|*@
+			                @*<input type="button" value="编辑权限" onclick="ShowPermission('@item.ID')" />|*@
+			                @*<input type="button" value="修改数据权限" onclick="ChangeDataPermission('@item.ID')" />*@
+			            </td>
+			        </tr>
+			    }
+            </tbody>
+       	</table>
+    </div>    	
+</div>
+<input type="hidden" id="hidroleid" />
+<div id="permissionlist"></div>
+<div id="divrole"></div>
+<script type="text/javascript">
+    function DeleteRole(id) {
+        $.post("/Role/DeleteRole", { id: id }, function (r) {
+            if (r != null && r == "Success") {
+                window.location.reload();
+            }
+        });
+    }
+
+    function ShowPermission(id) {
+        $("#permissionlist").html('');
+        $("#hidroleid").val(id);
+        $.post("/Permission/Index", { id: id }, function (r) {
+            if (r != null) {
+                $("#permissionlist").html(r);
+            }
+        });
+    }
+
+    function ChangeDataPermission(id) {
+        $("#divrole").html("");
+        $("#hidroleid").val(id);
+        $.get("/Other/DatapermissionList", { roleid: id }, function (r) {
+            if (r != null) {
+                $("#divrole").html(r);
+            }
+        });
+    }
+</script>

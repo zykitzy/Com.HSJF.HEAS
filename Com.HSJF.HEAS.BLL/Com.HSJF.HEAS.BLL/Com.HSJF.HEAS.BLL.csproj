@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B440174-DDC9-45A6-9D98-AD5E272BE411}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Com.HSJF.HEAS.BLL</RootNamespace>
+    <AssemblyName>Com.HSJF.HEAS.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audit\AuditCasePush.cs" />
+    <Compile Include="Audit\BaseAuditBll.cs" />
+    <Compile Include="Audit\Dto\AddressAuditDto.cs" />
+    <Compile Include="Audit\Dto\AuditHistoryDto.cs" />
+    <Compile Include="Audit\Dto\CollateralAuditDto.cs" />
+    <Compile Include="Audit\Dto\ContactAuditDto.cs" />
+    <Compile Include="Audit\Dto\EmergencyContactAuditDto.cs" />
+    <Compile Include="Audit\Dto\EnforcementPersonDto.cs" />
+    <Compile Include="Audit\Dto\EnterpriseCreditDto.cs" />
+    <Compile Include="Audit\Dto\EstimateSourceDto.cs" />
+    <Compile Include="Audit\Dto\GuarantorDto.cs" />
+    <Compile Include="Audit\Dto\HouseDetailDto.cs" />
+    <Compile Include="Audit\Dto\IndividualCreditDto.cs" />
+    <Compile Include="Audit\Dto\IntroducerAuditDto.cs" />
+    <Compile Include="Audit\Dto\IndustryCommerceTaxDto.cs" />
+    <Compile Include="Audit\Dto\BaseAuditCaseDto.cs" />
+    <Compile Include="Audit\Dto\QueryByPageInput.cs" />
+    <Compile Include="Audit\Dto\RelationEnterpriseAuditDto.cs" />
+    <Compile Include="Audit\Dto\RelationPersonAuditDto.cs" />
+    <Compile Include="Biz\BaseCaseBll.cs" />
+    <Compile Include="DataMigration\DataMigration.cs" />
+    <Compile Include="DataStatistics\DayStatisticsBll.cs" />
+    <Compile Include="DataStatistics\Dto\DayStatisticsDto.cs" />
+    <Compile Include="DataStatistics\Dto\EmailRequest.cs" />
+    <Compile Include="DataStatistics\Dto\GetDayStatisticsOutput.cs" />
+    <Compile Include="FinishedCase\Dto\FinishedCaseDetail.cs" />
+    <Compile Include="Lending\LendingBll.cs" />
+    <Compile Include="Other\Dto\RelationStateBLLModel.cs" />
+    <Compile Include="Mortgage\Dto\PublicMortgageDto.cs" />
+    <Compile Include="Mortgage\Dto\PushRespose.cs" />
+    <Compile Include="Mortgage\Dto\RejectInput.cs" />
+    <Compile Include="Mortgage\MortgagePush.cs" />
+    <Compile Include="Other\DictionaryBLL.cs" />
+    <Compile Include="Other\RelationStateBLL.cs" />
+    <Compile Include="FinishedCase\Dto\GetFinishedCasesInput.cs" />
+    <Compile Include="FinishedCase\FinishedCaseBll.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mortgage\MortgageBll.cs" />
+    <Compile Include="PushResponse.cs" />
+    <Compile Include="Sales\SalesGroupBll.cs" />
+    <Compile Include="PushRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Com.HSJF.Framework\Com.HSJF.Framework.csproj">
+      <Project>{e9306384-dc9f-4e61-b3a2-458acc575650}</Project>
+      <Name>Com.HSJF.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Com.HSJF.Infrastructure\Com.HSJF.Infrastructure.csproj">
+      <Project>{3913de7c-c8a5-480a-80f1-4e1a8512518a}</Project>
+      <Name>Com.HSJF.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="body-tpl.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="header-tpl.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

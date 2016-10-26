@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Menu.UserMenuViewModel>
+
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table id="getmenulist_table" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Url)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>可查看</th>
+            </tr>
+        <thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td onclick="getPermission('@item.ID');">@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Url)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>
+                        @if (!item.IsSelect)
+                        {
+
+                            <label onclick="setUserMenu('@item.ID');">
+                                <input class="ace ace-switch ace-switch-7" type="checkbox" />
+                                <span class="lbl"></span>
+                            </label>
+                        }
+                        else
+                        {
+
+                            <label onclick="RemoceUsermenu('@item.ID');">
+                                <input class="ace ace-switch ace-switch-7 green" type="checkbox" checked />
+                                <span class="lbl"></span>
+                            </label>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<input type="hidden" id="hidmenuid" />
+
+<script type="text/javascript">
+    $('#getmenulist_table').DataTable({
+        "bSort": true,
+        "aaSorting": []
+    });
+
+    function getPermission(menuid) {
+        $("#hidmenuid").val(menuid);
+        $.get("/Account/AccountPermission", { userid: $("input[type='hidden'][id='ID']").val(), menuid: menuid }, function (r) {
+            if (r != null) {
+                $("#permissionlist").html(r);
+            }
+            else {
+                alert("无法获取数据!");
+            }
+        });
+    }
+//  function setUserMenu(menuid) {
+//      $.get("/Account/SetUserMenu", { userid: $("input[type='hidden'][id='ID']").val(), menuid: menuid }, function (r) {
+//          if (r != null) {
+//              $("#menulist").html(r);
+//          }
+//          else {
+//              alert("无法获取数据!");
+//          }
+//      });
+//  }
+
+//  function RemoceUsermenu(menuid) {
+//      $.get("/Account/RemoveUserMenu", { userid: $("input[type='hidden'][id='ID']").val(), menuid: menuid }, function (r) {
+//          if (r != null) {
+//              $("#menulist").html(r);
+//          }
+//          else {
+//              alert("无法获取数据!");
+//          }
+//      });
+//  }
+
+</script>

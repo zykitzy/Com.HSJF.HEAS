@@ -1,0 +1,467 @@
+﻿@model Com.HSJF.HEAS.Web.Models.Biz.BaseCaseViewModel
+@helper GetDictionary(string parentPath)
+{
+    foreach (var t in new Com.HSJF.HEAS.Web.Helper.DictionaryHelper().GetListByTypeAll("", parentPath))
+    {
+            <option value="@t.Value" data-show="@t.Disabled">@t.Text</option>
+    }
+}
+
+<div class="page-content">
+    <input id="BaseCase_ID" type="hidden" value="@Model.ID" data-field="ID" data-class="BaseCase" />
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Biz/BaseCaseIndex/">返回</a>
+            &nbsp;
+            进件
+            <small>
+                <i class="icon-double-angle-right"></i>
+                详情
+            </small>
+        </h1>
+    </div>
+    <div class="hs-tool-bar">
+    	<span class="text-danger app_mright">
+            &nbsp;短借
+        </span>&nbsp;
+        <span class="app_mright">
+            案件类型:
+        </span>
+        
+        
+        <button class="btn btn-xs btn-success" onclick="SubmitBaseCase();">
+            <i class="icon-edit"></i>
+            提交
+        </button>
+        <button class="btn btn-xs btn-primary" onclick="EditBaseCase();">
+            <i class="icon-save"></i>
+            保存草稿
+        </button>
+        <button class="btn btn-xs btn-info" onclick="PreSubmitBaseCase();">
+            <i class="icon-suitcase"></i>
+            预提交
+        </button>
+        <div class="clear"></div>
+    </div>
+
+    <div class="vspace-10"></div>
+
+    <div class="row padt10">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a data-toggle="tab" href="#basic">进件信息</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="basic" class="tab-pane active">
+                        <h6 class="header smaller blue">申请信息</h6>
+                        <div class="row padt10">
+                            <!--<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group hide">
+                                <label>ID</label>
+                                <input class="form-control" type="text" data-field="ID" data-class="BaseCase" />
+                            </div>-->
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>地区 <span class="red">*</span></label>
+                                <select class="form-control" data-field="DistrictID" data-class="BaseCase" id="DistrictID" onchange="districtChange(true)" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>分公司 <span class="red">*</span></label>
+                                <select class="form-control" data-field="SalesGroupID" data-class="BaseCase" id="SalesGroupID" onchange="salesGroupChange(true)" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>销售人员 <span class="red">*</span></label>
+                                <select class="form-control" data-field="SalesID" data-class="BaseCase" id="SalesID" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请额度 <span class="red">*</span></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="LoanAmount" data-class="BaseCase" required onkeyup="formoney(event,this,2)" maxlength="15" min="300000" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请期限 <span class="red">*</span></label>
+                                <select class="form-control" data-fill-code="Dict:-LoanTerm" data-field="Term" data-class="BaseCase" required>
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请利率（年） <span class="red">*</span></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="AnnualRate" data-class="BaseCase" valid-type="float" min="2" max="100" data-rate="rate" maxlength="8" required />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费率 <span class="red">*</span></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ServiceChargeRate" data-class="BaseCase" valid-type="float" min="0" max="100" data-rate="rate" maxlength="8" required />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>还款来源 <span class="red">*</span></label>
+                                <textarea class="form-control" rows="5" data-field="PaymentFactor" data-class="BaseCase" maxlength="1000" required></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>借款用途 <span class="red">*</span></label>
+                                <textarea class="form-control" rows="5" data-field="Purpose" data-class="BaseCase" maxlength="1000" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">打款账户</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>账户名称 <span class="red">(请先添加“关系人”后选择)</span></label>
+                                <input type="hidden" data-field="OpeningSite" data-class="BaseCase" />
+                                <select class="form-control" id="OpeningSite" onchange="changeAccount(this);">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>开户行</label>
+                                <input class="form-control" type="text" data-field="OpeningBank" data-class="BaseCase" maxlength="100" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>银行卡号</label>
+                                <input class="form-control" type="text" data-field="BankCard" data-class="BaseCase" maxlength="100" />
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">
+                            关系人 <span class="red">(*至少填写一个借款人)</span>
+                            <button class="btn btn-minier btn-success pull-right new_add" id="personinfo" onclick="addRow('dialog_person', 'RelationPerson', 1,'enable', AutoSave);"><i class="icon-plus"></i>新增</button>
+                        </h6>
+                        <div class="table-responsive">
+                            <table id="basecase_person_list" class="table table-striped table-bordered table-hover" for="dialog_person" data-class="BaseCase" data-field="RelationPerson" data-child="RelationPerson">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>关系人类型</th>
+                                        <th>证件类型</th>
+                                        <th>证件号码</th>
+                                        <th>婚姻状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">
+                            房产信息 <span class="red">(*至少填写一个抵押物信息)</span>
+                            <button class="btn btn-minier btn-success pull-right new_add" id="fangchaninfo" onclick="addRow('dialog_facility', 'Collateral', 1,'enable', AutoSave);"><i class="icon-plus"></i>新增</button>
+                        </h6>
+                        <div class="table-responsive">
+                            <table id="basecase_facility_list" class="table table-striped table-bordered table-hover" for="dialog_facility" data-class="BaseCase" data-field="Collateral" data-child="Collateral">
+                                <thead>
+                                    <tr>
+                                        <th>类型</th>
+                                        <th>楼盘名称</th>
+                                        <th>地址</th>
+                                        <th>权利人</th>
+                                        <th>面积<span>（单位：米<sup>2</sup>）</span></th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("dialog")
+<script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript">
+	// 预提交
+	function PreSubmitBaseCase() {
+        var isValid = ValidateCheck(".page-content");
+        var isSubfc = false;
+        var isSubgxr = false;
+        if (isValid) {
+            var data_case = GetJsonData("BaseCase");
+            selAccount();
+             /*********************关系人 (*至少填写一个借款人)******************************/
+		        if ($("#basecase_person_list").find("tr").length > 1) {
+		            if (ValidateCheck(".page-content")) {
+		                var result = false;
+		                for (var i = 0; i < $('[data-field="RelationTypeText"]').length; i++) {
+		                    if ($('[data-field="RelationTypeText"]').eq(i).html() == "借款人") {
+		                        result = true;
+		                        break;
+		                    }
+		                }
+		                if (!result) {
+		                    showAlert("关系人-借款人 不能为空", "error");
+		                    $('[href="#person"]').click();
+		                    $("#personinfo").click();
+		                    return false;
+		                } else {
+							isSubgxr =true;
+		                }
+		            }
+		        } else {
+		            showAlert("关系人-借款人 不能为空", "error");
+		            $('[href="#person"]').click();
+		            $("#personinfo").click();
+		            return false;
+		        }
+            if ($("#basecase_facility_list").find("tr").length > 1) {
+                var arr = $('[data-field="CollateralTypeText"]');
+                var result = false;
+                for (var i = 0; i < arr.length; i++) {
+                    if ($('[data-field="CollateralTypeText"]').eq(i).html() == "抵押物") {
+                        result = true;
+                        break;
+                    }
+                }
+                if (!result) {
+                    showAlert("房产信息-抵押物 不能为空", "error");
+                    $('[href="#facility"]').click();
+                    $("#fangchaninfo").click();
+            		return false;                    
+                } else {
+
+					isSubfc = true;
+                }
+            } else {
+                showAlert("房产信息-抵押物 不能为空", "error");
+                $('[href="#facility"]').click();
+                $("#fangchaninfo").click();
+            	return false;
+                
+            }
+		        
+            if (isSubfc && isSubgxr) {
+                ConfirmBox("是否确认预提交?", function () {
+                    AjaxMethod("post", "/Biz/PreSubmitBaseCase", data_case, function (r) {
+                        MessageBox("预提交成功", function () {
+                            window.close();
+                        });
+                        hideLoading();
+                    }, true);
+                });
+		    }
+        }
+    }
+    //保存草稿
+    function EditBaseCase() {
+        var isValid = ValidateCheckSave(".page-content");
+        if (isValid) {
+            var data_case = GetJsonData("BaseCase");
+            selAccount();
+            AjaxMethod("post", "/Biz/EditBaseCase", data_case, function (r) {
+                showAlert("保存成功");
+                hideLoading();
+                //window.location = "/Biz/BaseCaseIndex?status=ss";
+            }, true, null, false);
+        }
+    }
+
+    //自动保存
+    function AutoSave() {
+        var isValid = ValidateCheckSave(".page-content");
+        var data_case = GetJsonData("BaseCase");
+        selAccount();
+        if (isValid) {
+            AjaxMethod("post", "/Biz/EditBaseCase", data_case, function (r) {
+                showAlert("保存成功");
+                hideLoading();
+            }, true);
+        }
+    }
+
+    //删除方法
+    function deleteTr() {
+        var isValid = ValidateCheckSave(".page-content");
+        var data_case = GetJsonData("BaseCase");
+        selAccount();
+        if (isValid) {
+            AjaxMethod("post", "/Biz/EditBaseCase", data_case, function (r) {
+                showAlert("删除成功");
+                hideLoading();
+            }, true);
+        }
+    }
+
+    //提交
+    function SubmitBaseCase() {
+        var isValid = ValidateCheck(".page-content");
+        var isSubfc = false;
+        var isSubgxr = false;
+        
+
+        if (isValid) {
+            var data_case = GetJsonData("BaseCase");
+            selAccount();
+             /*********************关系人 (*至少填写一个借款人)******************************/
+		        if ($("#basecase_person_list").find("tr").length > 1) {
+		            if (ValidateCheck(".page-content")) {
+		                var result = false;
+		                for (var i = 0; i < $('[data-field="RelationTypeText"]').length; i++) {
+		                    if ($('[data-field="RelationTypeText"]').eq(i).html() == "借款人") {
+		                        result = true;
+		                        break;
+		                    }
+		                }
+		                if (!result) {
+		                    showAlert("关系人-借款人 不能为空", "error");
+		                    $('[href="#person"]').click();
+		                    $("#personinfo").click();
+		                    return false;
+		                } else {
+							isSubgxr =true;
+		                }
+		            }
+		        } else {
+		            showAlert("关系人-借款人 不能为空", "error");
+		            $('[href="#person"]').click();
+		            $("#personinfo").click();
+		            return false;
+		        }
+            if ($("#basecase_facility_list").find("tr").length > 1) {
+                var arr = $('[data-field="CollateralTypeText"]');
+                var result = false;
+                for (var i = 0; i < arr.length; i++) {
+                    if ($('[data-field="CollateralTypeText"]').eq(i).html() == "抵押物") {
+                        result = true;
+                        break;
+                    }
+                }
+                if (!result) {
+                    showAlert("房产信息-抵押物 不能为空", "error");
+                    $('[href="#facility"]').click();
+                    $("#fangchaninfo").click();
+            		return false;                    
+                } else {
+
+					isSubfc = true;
+                }
+            } else {
+                showAlert("房产信息-抵押物 不能为空", "error");
+                $('[href="#facility"]').click();
+                $("#fangchaninfo").click();
+            	return false;
+                
+            }
+		        
+            if (isSubfc && isSubgxr) {
+                ConfirmBox("是否确认提交?", function () {
+                    AjaxMethod("post", "/Biz/SubmitBaseCase", data_case, function (r) {
+                        MessageBox("提交成功", function () {
+                            window.close();
+                        });
+                        hideLoading();
+                    }, true);
+                });
+		    }
+        }
+    }
+
+    //页面初始化
+    jQuery(function ($) {
+        //加载页面数据
+        LoadPageData();
+        rate();
+        dictionaryHide();
+    });
+
+    //加载页面数据
+    var LoadPageData = function () {
+        var bc_id = $("#BaseCase_ID").val();
+
+        showLoading();
+        AjaxMethod("post", "/Biz/GetBaseCase", { id: bc_id },
+        	function (r) {
+    			for (var i = 0; i < r["Data"]["RelationPerson"].length; i++) {
+    				if (r["Data"]["RelationPerson"][i].IsLocked == true) {
+    				//联系方式
+    					if (r["Data"]["RelationPerson"][i].Contacts !=null) {
+    						for (var j = 0; j < r["Data"]["RelationPerson"][i].Contacts.length; j++) {
+    							r["Data"]["RelationPerson"][i].Contacts[j].IsLocked = true;
+    							
+    						}
+    					}
+    					//地址
+    					if (r["Data"]["RelationPerson"][i].Addresses !=null) {
+    						for (var j = 0; j < r["Data"]["RelationPerson"][i].Addresses.length; j++) {
+    							r["Data"]["RelationPerson"][i].Addresses[j].IsLocked = true;
+    							
+    						}
+    					}
+    					//紧急联系人
+    					if (r["Data"]["RelationPerson"][i].EmergencyContacts !=null) {
+    						for (var j = 0; j < r["Data"]["RelationPerson"][i].EmergencyContacts.length; j++) {
+    							r["Data"]["RelationPerson"][i].EmergencyContacts[j].IsLocked = true;
+    							
+    						}
+    					}
+    					//企业信息
+    					if (r["Data"]["RelationPerson"][i].RelationEnterprise !=null) {
+    						for (var j = 0; j < r["Data"]["RelationPerson"][i].RelationEnterprise.length; j++) {
+    							r["Data"]["RelationPerson"][i].RelationEnterprise[j].IsLocked = true;
+    							
+    						}
+    					}
+    					
+    				}
+    			}
+        		
+        		
+        		
+            GetDistrict(false, function () {
+                $("#basic [data-class='BaseCase'][data-field='DistrictID']").val(r["Data"]["DistrictID"]);
+                districtChange(false, function () {
+                    $("#basic [data-class='BaseCase'][data-field='SalesGroupID']").val(r["Data"]["SalesGroupID"]);
+                    salesGroupChange(false, function () {
+                        GetDictionary($("#borrower_idtype"), "-DocType", function () {
+                        	
+                            SetJsonData(r["Data"], "BaseCase");
+//                          readonly();
+//                          if ($("#CaseStatusRW").val() == "readonly") {
+//                              $("[type='radio']").attr("disabled", true);
+//                          }
+							
+
+                            selAccount();
+                            hideLoading();
+                        });
+                    });
+                });
+            });
+        }, false);
+        var date = new Date();
+        var htm = "";
+        for (var i = date.getFullYear() - 70; i < date.getFullYear() + 70; i++) {
+            htm = htm + "<option ='" + i + "'>" + i + "</option>";
+        }
+        $('[data-field="CompletionDate"]').append(htm);
+    };
+
+    var limitDate = "";
+    function longterm(obj) {
+        if (obj.checked) {
+            var objuse = $(obj).parent().siblings('[data-field="ExpiryDate"]');
+            limitDate = objuse.val();
+            $(obj).parent().siblings('[data-field="ExpiryDate"]').attr("disabled", true);
+            $(obj).parent().siblings('[data-field="ExpiryDate"]').val("9999-12-31");
+        } else {
+            $(obj).parent().siblings('[data-field="ExpiryDate"]').attr("disabled", false);
+            $(obj).parent().siblings('[data-field="ExpiryDate"]').val(limitDate);
+        }
+    };
+</script>

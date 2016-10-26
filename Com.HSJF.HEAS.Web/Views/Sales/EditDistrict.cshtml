@@ -1,0 +1,66 @@
+﻿@model Com.HSJF.HEAS.Web.Models.Sales.DistrictViewModel
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Sales/DistrictIndex">返回</a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;地区管理
+            </small>
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;修改
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+    @using (Ajax.BeginForm("EditDistrict", "Sales", new AjaxOptions { HttpMethod = "Post", OnSuccess = "dict_edit_success" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="hs-tool-bar">
+            <button type="submit" class="btn btn-xs btn-success">
+                <i class="icon-save"></i>
+                保存
+            </button>
+        </div>
+        <div class="vspace-4"></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a data-toggle="tab" href="#basic">信息</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="basic" class="tab-pane active">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Name)
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.ShortNumber)
+                                    @Html.EditorFor(model => model.ShortNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShortNumber, "", new { @class = "text-danger" })
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript" src="../../js/init.js"></script>
+<script>
+    function dict_edit_success() {
+        window.location = "/Sales/DistrictIndex?status=ss";
+    }
+</script>

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Menu.MenuViewModel>
+
+@{
+    Layout = null;
+    var rootMenus = Model.Where(n => string.IsNullOrEmpty(n.ParentID));
+}
+
+@helper BuildMenu(IEnumerable<Com.HSJF.HEAS.Web.Models.Menu.MenuViewModel> menus)
+{
+    <ul class="nav nav-list" id="sideMenu">
+        <li data-id="icon-index">
+            <a href="/Home/Index" id="homeIndex">
+                <i class="icon-home"></i>
+                <span class="menu-text">首页</span>
+            </a>
+        </li>
+        @foreach (var menu in menus)
+        {
+            var children = Model.Where(n => n.ParentID == menu.ID);
+            <li data-id="@menu.Icon">
+                @if (children.Any())
+                {
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="@menu.Icon"></i>
+                        <span class="menu-text">@menu.Name</span>
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                }
+                else
+                {
+                    <a href="@menu.Url" id="@menu.ID">
+                        <i class="@menu.Icon"></i>
+                        <span class="menu-text">@menu.Name</span>
+                    </a>
+                }
+
+                @if (children.Any())
+                {
+                    <ul class="submenu" style="display:none;">
+                        @foreach (var ch in children)
+                        {
+                            <li>
+                                <a href="@ch.Url" id="@ch.ID">@ch.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+        <li>
+            <a href="javascript:SignOut();">
+                <i class="icon-signout"></i>
+                <span class="menu-text">注销</span>
+            </a>
+        </li>
+    </ul>
+}
+
+@BuildMenu(rootMenus)
+
+<script type="text/javascript" src="../../js/init.js"></script>
+<script>
+    function SignOut() {
+        ConfirmBox("是否确定退出？", function () {
+            window.location = "/Home/SignOut/";
+        });
+    }
+
+    jQuery(document).ready(function () {
+        var currentURL = window.location.pathname;
+        currentURL = currentURL.substr(0, currentURL.indexOf("/", 1));
+        var container = $('#sideMenu').children();
+        var menuID;
+
+        //      container.each(function () {
+        //          var tempURL = $(this).children('a').attr('href');
+        //          if (tempURL.indexOf(currentURL) >= 0) {
+        //              menuID = $(this).children('a').attr('id');
+        //              $('#sideMenu li').removeClass('active');
+        //              $('#' + menuID).parent().addClass('active');
+        //          }
+        //      });
+        //
+        for (var address in address_url) {
+            if (window.location.pathname.indexOf(address) != -1) {
+                if (address_url[address] != "icon-cog" && address_url[address] != "icon-coffee") {
+                    //      			$('#sideMenu').children().eq(address_url[address]).addClass("active");
+                    $('[data-id="' + address_url[address] + '"]').addClass("active");
+                } else {
+                    if (address_url[address] == "icon-cog") {
+                        $('[data-id="' + address_url[address] + '"]').addClass("active");
+                        //      			$('#sideMenu').children().eq(address_url[address]).addClass("active").addClass("open");
+                        $('[href="' + address + '"]').parent().addClass("active").parent().show();
+                    }
+                    if (address_url[address] == "icon-coffee") {
+                        $('[data-id="' + address_url[address] + '"]').addClass("active");
+                        //      			$('#sideMenu').children().eq(address_url[address]).addClass("active").addClass("open");
+                        $('[href="/FinishedCase/FinishCaseIndex"]').parent().addClass("active").parent().show();
+                    }
+                }
+            }
+        }
+        //		var obj = $("[href='"+window.location.pathname+"']")
+        //		if(obj.parent().parent().hasClass("submenu")){
+        //			//两级列表时
+        //			obj.parent().parent().parent().addClass("open");
+        //			$(".submenu").show();
+        //		}else{
+        //			//一级列表时
+        //			obj = $("[href*='"+window.location.pathname.split("/")[1]+"']");
+        //		}
+        //		obj.parent().addClass("active");
+    });
+</script> 

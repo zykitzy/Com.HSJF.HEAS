@@ -1,0 +1,85 @@
+﻿@model Com.HSJF.HEAS.Web.Models.Other.DictionaryViewModel
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Other/DictionaryIndex">返回</a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;字典管理
+            </small>
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;新增
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    @using (Ajax.BeginForm("CreateDictionary", "Other", new AjaxOptions { HttpMethod = "Post", OnSuccess = "dict_add_success" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="hs-tool-bar">
+            <button type="submit" class="btn btn-xs btn-success">
+                <i class="icon-save"></i>
+                保存
+            </button>
+        </div>
+        <div class="vspace-4"></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a data-toggle="tab" href="#basic">信息</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="basic" class="tab-pane active">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Key)
+                                    @Html.EditorFor(model => model.Key, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Key, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Text)
+                                    @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.State)
+                                    @Html.CheckBoxFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @checked="true" } })
+                                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.ParentKey)
+                                    @Html.DropDownListFor(model => model.ParentKey, new Com.HSJF.HEAS.Web.Helper.DictionaryHelper().GetDicList(Model == null ? string.Empty : Model.Key, Model == null ? string.Empty : Model.ParentKey), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ParentKey, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Desc)
+                                    @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript" src="../../js/init.js"></script>
+<script>
+    function dict_add_success(r) {
+        if (r == "Success") {
+            window.location = "/Other/DictionaryIndex?status=ss";
+        }
+        else {
+        }
+    }
+</script>

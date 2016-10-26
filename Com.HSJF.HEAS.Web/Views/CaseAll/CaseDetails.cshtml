@@ -1,0 +1,843 @@
+﻿@using Com.HSJF.HEAS.Web.Helper
+@model Com.HSJF.HEAS.Web.Models.CaseAll.CaseAllDetailsViewModel
+
+@{
+    ViewBag.Title = "CaseDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@helper GetDictionary(string parentPath)
+{
+    foreach (var t in new Com.HSJF.HEAS.Web.Helper.DictionaryHelper().GetListByTypeAll("", parentPath))
+    {
+        <option value="@t.Value" data-show="@t.Disabled">@t.Text</option>}
+}
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/CaseAll/Index/">返回</a>
+            &nbsp;
+            所有案件
+            <small>
+                <i class="icon-double-angle-right"></i>
+                详情
+            </small>
+        </h1>
+    </div>
+    <div class="hs-tool-bar">
+    	<span class="text-primary app_mright">
+       		&nbsp;@CaseStatusHelper.GetStatsText(ViewBag.CaseStatus)
+       	</span>
+       	<span class="app_mright">
+       		&nbsp;案件状态:
+       	</span>
+        <span class="text-danger app_mright">
+       		&nbsp;短借
+       	</span>
+       	<span class="app_mright">
+       		&nbsp;案件类型:
+       	</span>
+       	<span class="text-success app_mright">
+       		&nbsp;@ViewBag.CaseNum 
+       	</span>&nbsp;
+    	<span class="app_mright">
+       		&nbsp;案件编号:
+       	</span>
+        <div class="clear"></div>
+    </div>
+
+    <div class="vspace-10"></div>
+	
+	<div class="row padt10">
+        <div class="col-xs-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a data-toggle="tab" href="#basic">进件信息</a></li>
+                    <li><a data-toggle="tab" href="#researchInfo">调查信息</a></li>
+                    <li><a data-toggle="tab" href="#AuditInfo">审核信息</a></li>
+                    <li><a data-toggle="tab" href="#publicMortgage">签约信息</a></li>
+                    <li><a data-toggle="tab" href="#Lending">放款信息</a></li>
+                    <li><a data-toggle="tab" href="#history">流程历史</a></li>
+                </ul>
+                <div class="tab-content">
+                	<div id="basic" class="tab-pane active">
+                		<h6 class="header smaller blue">申请信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>地区</label>
+                                <select disabled class="form-control" data-field="DistrictID" data-class="BaseAudit" id="DistrictID" onchange="districtChange(true)">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>分公司</label>
+                                <select disabled class="form-control" data-field="SalesGroupID" data-class="BaseAudit" id="SalesGroupID" onchange="salesGroupChange(true)">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>销售人员</label>
+                                <select disabled class="form-control" data-field="SalesID" data-class="BaseAudit" id="SalesID">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请额度</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="LoanAmount" data-class="BaseAudit" onkeyup="formoney(event,this,2)" maxlength="20" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请期限</label>
+                               	<select disabled class="form-control" data-fill-code="Dict:-LoanTerm" data-field="Term" data-class="BaseAudit">
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>申请利率（年）</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="AnnualRate" data-class="BaseAudit" valid-type="float" data-rate="rate" maxlength="8" />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费率</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="ServiceChargeRate" data-class="BaseAudit" valid-type="float" data-rate="rate" maxlength="8" />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>客户保证金</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="CustEarnestMoney" data-class="BaseAudit" onkeyup="formoney(event,this,2)" maxlength="15" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>还款来源</label>
+                                <textarea disabled class="form-control" rows="5" data-field="PaymentFactor" data-class="BaseAudit" maxlength="1000"></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>借款用途</label>
+                                <textarea disabled class="form-control" rows="5" data-field="Purpose" data-class="BaseAudit" maxlength="1000"></textarea>
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">打款账户</h6>
+                        <div class="row padt10">
+                        	<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                        		<label>账户名称</label>
+                                <input type="hidden" data-field="OpeningSite" data-class="BaseAudit"/>
+                            	<select disabled class="form-control" id="OpeningSite" onchange="changeAccount(this);">
+                                    <option value=""></option>
+                                </select>
+                        	</div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>开户行</label>
+                                <input disabled class="form-control" type="text" data-field="OpeningBank" data-class="BaseAudit" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>银行卡号</label>
+                                <input disabled class="form-control" type="text" data-field="BankCard" data-class="BaseAudit" />
+                            </div>
+                        </div>
+                        -->
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">
+                    		关系人
+                        </h6>
+                        <div class="table-responsive">
+							<table id="basecase_person_list" disabled class="table table-striped table-bordered table-hover" for="dialog_person" data-class="BaseAudit" data-field="RelationPersonAudits" data-child="RelationPersonAudits">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>关系人类型</th>
+                                        <th>证件类型</th>
+                                        <th>证件号码</th>
+                                        <th>婚姻状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                           </table>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">
+                        	房产信息
+                        </h6>
+                        <div class="table-responsive">
+                            <table id="basecase_facility_list" disabled class="table table-striped table-bordered table-hover" for="dialog_facility" data-class="BaseAudit" data-field="CollateralAudits" data-child="CollateralAudits">
+                                <thead>
+                                    <tr>
+                                        <th>类型</th>
+                                        <th>楼盘名称</th>
+                                        <th>地址</th>
+                                        <th>权利人</th>
+                                        <th>面积<span>（单位：米<sup>2</sup>）</span></th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                	</div>
+                	<div id="researchInfo" class="tab-pane">
+                		<h6 class="header smaller blue">
+                      		案件信息
+                        </h6>
+						<div class="row padt10">
+							<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>综合抵押率</label>
+                                <div class="input-group">
+                                <input class="form-control" type="text" data-field="ComprehensiveRate" data-class="BaseAudit" valid-type="float" data-rate="rate" maxlength="8" disabled/>
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>抵押次数</label>
+                                <select class="form-control" data-fill-code="Dict:-FSLoan" data-field="MortgageOrder" data-class="BaseAudit" disabled>
+                                    <option></option>
+                                    @GetDictionary("-FSLoan")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>外访费（下户费）</label>
+                                <div class="input-group">
+                                <input class="form-control" type="text" data-field="OutboundCost" data-class="BaseAudit" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="vspace-10"></div>
+						<h6 class="header smaller blue">
+                            被执行人情况
+                        </h6>
+                        <div class="table-responsive">
+                            <table disabled id="audit_EnforcementPersons_list" class="table table-striped table-bordered table-hover" for="dialog_EnforcementPersons" data-class="BaseAudit" data-field="EnforcementPersons" data-child="EnforcementPersons">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>全国被执行网情况</th>
+                                        <th>法院开庭记录</th>
+                                        <th>Lawxin</th>
+                                        <th>失信网失信记录</th>
+                                        <th>社会负面新闻</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="vspace-10"></div> 
+                        <h6 class="header smaller blue">
+                            工商税务情况
+                        </h6>
+                        <div class="table-responsive">
+                            <table disabled id="audit_IndustryCommerceTaxs_list" class="table table-striped table-bordered table-hover" for="dialog_IndustryCommerceTaxs" data-class="BaseAudit" data-field="IndustryCommerceTaxs" data-child="IndustryCommerceTaxs">
+                                <thead>
+                                    <tr>
+                                        <th>企业名称</th>
+                                        <th>企业年检情况</th>
+                                        <th>公司实际经营</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                	    <div class="vspace-10"></div> 
+                    	<h6 class="header smaller blue">
+                            房屋明细
+                        </h6>
+                        <div class="table-responsive">
+                            <table disabled id="audit_HouseDetails_list" class="table table-striped table-bordered table-hover" for="dialog_HouseDetails" data-class="BaseAudit" data-field="HouseDetails" data-child="HouseDetails">
+                                <thead>
+                                    <tr>
+                                        <th>房屋名称</th>
+                                        <th>评估价<span>（单位：元）</span></th>
+                                        <th>房屋类型</th>
+                                        <th>抵押情况</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                	</div>
+                	<div id="AuditInfo" class="tab-pane">
+                		<h6 class="header smaller blue">
+                            个人资信情况
+                        </h6>
+                        <div class="table-responsive">
+                            <table disabled id="audit_IndividualCredits_list" class="table table-striped table-bordered table-hover" for="dialog_IndividualCredits" data-class="BaseAudit" data-field="IndividualCredits" data-child="IndividualCredits">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>信用卡</th>
+                                        <th>房贷、车贷</th>
+                                        <th>其他贷款</th>
+                                        <th>逾期情况</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                      	<h6 class="header smaller blue">
+                            企业资信情况
+                        </h6>
+                        <div class="table-responsive">
+                            <table disabled id="audit_EnterpriseCredits_list" class="table table-striped table-bordered table-hover" for="dialog_EnterpriseCredits" data-class="BaseAudit" data-field="EnterpriseCredits" data-child="EnterpriseCredits">
+                                <thead>
+                                    <tr>
+                                        <th>企业名称</th>
+                                        <th>企业贷款卡</th>
+                                        <th>企业负债信息</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">产品信息</h6>
+                        <div class="row padt10">
+							<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>审批金额</label>
+			                    <div class="input-group">
+			                    <input class="form-control" type="text" data-field="AuditAmount" data-class="BaseAudit" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+			                </div>
+			                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>审批期限</label>
+			                    <select class="form-control" data-fill-code="Dict:-LoanTerm" data-field="AuditTerm" data-class="BaseAudit" disabled>
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+			                </div>    
+			                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>审批利率（年）</label>
+			                    <div class="input-group">
+			                    <input class="form-control" type="text" data-field="AuditRate" data-class="BaseAudit" valid-type="float" data-rate="rate" maxlength="8" disabled />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+			                </div>    
+			                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>放款日期</label>
+			                    <div class="input-group">
+			                    <input class="form-control date-picker" type="text" data-field="LendingDate" data-class="BaseAudit"  valid-type="date" disabled/>
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+			                </div>    
+							<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>借款申请书</label>
+			                    <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                    			<div class="hide" data-field="LoanProposedFile" data-class="BaseAudit" data-type="files"><ul class="fileupload_list"></ul></div>
+			                </div> 
+			                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group">
+			                    <label>放款条件</label>
+			                    <select class="form-control" data-fill-code="Dict:-LoanTerm" data-field="LendingTerm" data-class="BaseAudit" disabled>
+                                    <option></option>
+                                    @GetDictionary("-LendingTerm")
+                                </select>
+			                </div>    
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>拒绝理由</label>
+                                <textarea class="form-control" rows="5" data-field="RejectReason" data-class="BaseAudit" maxlength="1000" disabled></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>批注意见</label>
+                                <textarea class="form-control" rows="5" data-field="AuditComment" data-class="BaseAudit" maxlength="1000" disabled></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label>签约要件</label>
+                                <textarea class="form-control" rows="5" data-field="ContractFileInfo" data-class="BaseAudit" maxlength="1000" disabled></textarea>
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">第三方信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>案件模式</label>
+                                <select disabled class="form-control" data-fill-code="Dict:-CaseMode" data-field="CaseMode" data-class="BaseAudit" onchange="caseModel(this);">
+                                    <option></option>
+                                    @GetDictionary("-CaseMode")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方平台</label>
+                                <select disabled class="form-control" data-fill-code="Dict:-ThirdPlatform" data-field="ThirdParty" data-class="BaseAudit">
+                                    <option></option>
+                                    @GetDictionary("-ThirdPlatform")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批金额</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="ThirdPartyAuditAmount" data-class="BaseAudit" maxlength="15" onkeyup="formoney(event,this,2)" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批期限</label>
+                                <select disabled class="form-control" data-fill-code="Dict:-LoanTerm" data-field="ThirdPartyAuditTerm" data-class="BaseAudit">
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批利率（年）</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="ThirdPartyAuditRate" data-class="BaseAudit" data-rate="rate" maxlength="8" />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>平台保证金</label>
+                                <div class="input-group">
+                                    <input disabled class="form-control" type="text" data-field="EarnestMoney" data-class="BaseAudit" onkeyup="formoney(event,this,2)" maxlength="15" />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+
+                	</div>
+                	<div id="publicMortgage" class="tab-pane">
+                		<h6 class="header smaller blue">签约信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group hide">
+                                <input class="form-control" type="text" data-field="ID" data-class="PublicMortgage" id="PublicMortgageID" />
+                                <input class="form-control" type="hidden" data-field="CaseNum" data-class="PublicMortgage" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>合同号</label>
+                                <input class="form-control" type="text" data-field="ContractNo" data-class="PublicMortgage" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>出借人姓名</label>
+                                <input class="form-control" type="text" data-field="LenderName" data-class="PublicMortgage" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>签约金额</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ContractAmount" data-class="PublicMortgage" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>签约日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="ContractDate" data-class="PublicMortgage" valid-type="date" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>签约人员</label>
+                                <input class="form-control" type="text" data-field="ContractPersonText" data-class="PublicMortgage" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>合同文件</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="ContractFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>借款借据</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="FourFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>他证</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="OtherFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>收件收据</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="CollectionFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>还款委托书</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="RepaymentAttorneyFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>授权委托书</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="PowerAttorneyFile" data-class="PublicMortgage" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+                        <h6 class="header smaller blue">打款账户</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>账户名称</label>
+                                <input class="form-control" type="text" data-field="OpeningSiteText" data-class="PublicMortgage" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>开户行</label>
+                                <input class="form-control" type="text" data-field="OpeningBank" data-class="BaseAudit" maxlength="100" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>银行卡号</label>
+                                <input class="form-control" type="text" data-field="BankCard" data-class="BaseAudit" maxlength="100" disabled />
+                            </div>
+                        </div>
+                	</div>
+                	<div id="Lending" class="tab-pane">
+                		<h6 class="header smaller blue">产品信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group hide">
+                                <label>ID</label>
+                                <input class="form-control" type="text" data-field="ID" data-class="Lending" />
+                                <input class="form-control" type="text" data-field="CaseNum" data-class="Lending" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>审批金额</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="AuditAmount" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>审批期限</label>
+                                <select disabled class="form-control" data-fill-code="Dict:-LoanTerm" data-field="AuditTerm" data-class="Lending">
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>审批利率（年）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="AuditRate" data-class="Lending" valid-type="float" data-rate="rate" maxlength="8" disabled />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款日期</label>
+                                <input disabled class="form-control" type="text" data-field="LendingDate" data-class="Lending" />
+                            </div>
+                        </div>
+
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">第三方信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>案件模式</label>
+                                <input disabled class="form-control" type="text" data-field="CaseModeText" data-class="Lending" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方平台</label>
+                                <input disabled class="form-control" type="text" data-field="ThirdPartyText" data-class="Lending" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批金额</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ThirdPartyAuditAmount" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批期限</label>
+                                <select class="form-control" data-fill-code="Dict:-LoanTerm" data-field="ThirdPartyAuditTerm" data-class="Lending" disabled>
+                                    <option></option>
+                                    @GetDictionary("-LoanTerm")
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>第三方审批利率（年）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ThirdPartyAuditRate" data-class="Lending" valid-type="float" data-rate="rate" maxlength="8" disabled />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">客户信息</h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>借款人姓名</label>
+                                <input disabled class="form-control" type="text" data-field="Borrower" data-class="Lending" maxlength="20" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户名称</label>
+                                <input class="form-control" type="text" data-field="OpeningSiteText" data-class="Lending" disabled />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户开户行</label>
+                                <input disabled class="form-control" type="text" data-field="OpeningBank" data-class="Lending" maxlength="20" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>打款账户账号</label>
+                                <input disabled class="form-control date-picker" type="text" data-field="BankCard" data-class="Lending" />
+                            </div>
+                        </div>
+                        <div class="vspace-10"></div>
+
+                        <h6 class="header smaller blue">
+                            放款信息
+                        </h6>
+                        <div class="row padt10">
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款金额</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ContractAmount" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费率</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ServiceChargeRate" data-class="Lending" valid-type="float" data-rate="rate" maxlength="8" disabled />
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>服务费</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="ServiceCharge" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>客户保证金</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="CustEarnestMoney" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>平台保证金</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="EarnestMoney" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>外访费（下户费）</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" data-field="OutboundCost" data-class="Lending" maxlength="15" onkeyup="formoney(event,this,2)" disabled />
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>实际放款日期</label>
+                                <div class="input-group">
+                                    <input class="form-control date-picker" type="text" data-field="LendTime" data-class="Lending" valid-type="date" onchange="changePaymentDay(this);" disabled />
+                                    <span class="input-group-addon">
+                                        <i class="icon-calendar bigger-110"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>收款日</label>
+                                <select class="form-control" data-field="PaymentDay" data-class="Lending" disabled>
+                                    <option></option>
+                                    <option value="1">每月1日</option>
+                                    <option value="2">每月2日</option>
+                                    <option value="3">每月3日</option>
+                                    <option value="4">每月4日</option>
+                                    <option value="5">每月5日</option>
+                                    <option value="6">每月6日</option>
+                                    <option value="7">每月7日</option>
+                                    <option value="8">每月8日</option>
+                                    <option value="9">每月9日</option>
+                                    <option value="10">每月10日</option>
+                                    <option value="11">每月11日</option>
+                                    <option value="12">每月12日</option>
+                                    <option value="13">每月13日</option>
+                                    <option value="14">每月14日</option>
+                                    <option value="15">每月15日</option>
+                                    <option value="16">每月16日</option>
+                                    <option value="17">每月17日</option>
+                                    <option value="18">每月18日</option>
+                                    <option value="19">每月19日</option>
+                                    <option value="20">每月20日</option>
+                                    <option value="21">每月21日</option>
+                                    <option value="22">每月22日</option>
+                                    <option value="23">每月23日</option>
+                                    <option value="24">每月24日</option>
+                                    <option value="25">每月25日</option>
+                                    <option value="26">每月26日</option>
+                                    <option value="27">每月27日</option>
+                                    <option value="28">每月28日</option>
+                                    <option value="29">每月29日</option>
+                                    <option value="30">每月30日</option>
+                                    <option value="31">每月31日</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 form-group">
+                                <label>放款凭证</label>
+                                <label class="form-control control-label hs-clickable text-center" onclick="fileUploadFunction(this);" disabled>查看附件 &nbsp;<span class="blue">(0)</span></label>
+                                <div class="hide" data-field="LendFile" data-class="Lending" data-type="files"><ul class="fileupload_list"></ul></div>
+                            </div>
+                        </div>
+                	</div>
+                	<div id="history" class="tab-pane">
+                        <div class="row padt10">
+                            <div id="timeline-1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                        <div class="timeline-container">
+                                            <div class="timeline-items" id="historyContent">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+@Html.Partial("dialog")
+<script>
+	//页面初始化
+    jQuery(function ($) {
+        //加载页面数据
+        var date = new Date();
+        var htm = "";
+        for (var i = date.getFullYear() - 70; i < date.getFullYear() + 70; i++) {
+            htm = htm + "<option ='" + i + "'>" + i + "</option>";
+        }
+        $('[data-field="CompletionDate"]').append(htm);
+        LoadPageData();
+        rate();
+        dictionaryHide();
+    });
+
+    function LoadPageData(){
+    	showLoading();
+    	var id = location.href.split("/")[location.href.split("/").length-1];
+    	AjaxMethod("get", 
+			"/CaseAll/GetCaseDetails",
+			{ id: id }, 
+			function(r){
+				console.log(r);	
+				GetDistrict(false, function () {
+	                $("#basic [data-class='BaseAudit'][data-field='DistrictID']").val(r["Data"].Baseauditvm["DistrictID"]);
+	                districtChange(false, function () {
+	                    $("#basic [data-class='BaseAudit'][data-field='SalesGroupID']").val(r["Data"].Baseauditvm["SalesGroupID"]);
+	                    salesGroupChange(false, function () {
+	                        GetDictionary($("#borrower_idtype"), "-DocType", function () {
+	                            SetJsonData(r["Data"].Baseauditvm, "BaseAudit");
+	//                          readonly();
+	//                          if ($("#CaseStatusRW").val() == "readonly") {
+	//                              $("[type='radio']").attr("disabled", true);
+	//                          }
+	                            selAccount();
+	                            hideLoading();
+	                        });
+	                    });
+	                });
+	            });
+				SetJsonData(r["Data"].Lendingvm, "Lending");
+				SetJsonData(r["Data"].Mortgagevm, "PublicMortgage");
+				if (r.Data.Baseauditvm.AuditHistory) {
+	                var str = '<div class="timeline-label">' +
+	                    '<span class="label label-primary arrowed-in-right label-lg">' +
+	                    '<b>当前节点</b>' +
+	                    '</span>' +
+	                    '</div>';
+	                var hisArr = r.Data.Baseauditvm.AuditHistory;
+	                for (var i = 0; i < hisArr.length; i++) {
+	                    var color = "red";
+	                    if (hisArr[i].Action == "提交" || hisArr[i].Action == "通过") {
+	                        color = "green";
+	                    }
+	                    var Description = "";
+	                    var flag = "";
+	                    if (hisArr[i].Description != null && hisArr[i].Description != "") {
+	                        Description = '<div class="widget-body">' +
+	                            '<div class="widget-main ' + color + '">' +
+	                            '备注：<br>' +
+	                            '<span class="' + color + '">' + hisArr[i].Description + '</span>' +
+	                            '<div class="space-6"></div>' +
+	                            '</div>' +
+	                            '</div>';
+	                        flag = '<span class="widget-toolbar">' +
+	                            '<a href="#" data-action="collapse">' +
+	                            '<i class="icon-chevron-up"></i>' +
+	                            '</a>' +
+	                            '</span>';
+	                    }
+	                    var user = "";
+	                    if (i != 0) {
+	                        user = hisArr[i].CreatUser;
+	                    }
+	                    var date_time = "";
+	                    if (dateFormat(hisArr[i].CreateTime) != "") {
+	                        date_time = '<i class="icon-time bigger-110"></i>' + dateFormat(hisArr[i].CreateTime);
+	                    }
+	                    str = str + '<div class="timeline-item clearfix">' +
+	                        '<div class="timeline-info">' +
+	                        '<i class="timeline-indicator icon-star btn btn-warning no-hover green"></i>' +
+	                        '</div>' +
+	                        '<div class="widget-box transparent">' +
+	                        '<div class="widget-header widget-header-small">' +
+	                        '<h5 class="smaller">' +
+	                        '<a class="blue">' + hisArr[i].CaseStatusTest + '</a>&nbsp;&nbsp;' +
+	                        '<span class="grey">' + user + '</span>&nbsp;&nbsp;' +
+	                        '<span class="' + color + '">' + hisArr[i].Action + '</span>' +
+	                        '</h5>' +
+	                        '<span class="widget-toolbar no-border">' +
+	                        date_time +
+	                        '</span>' +
+	                        flag +
+	                        '</div>' +
+	                        Description +
+	                        '</div>' +
+	                        '</div>';
+	                }
+	                $("#historyContent").html(str);
+	            }
+				hideLoading();
+			}
+    	)
+    }
+</script>
+<style>
+    .timeline-container:not(.timeline-style2) .timeline-indicator {
+        opacity: 1;
+        border-radius: 100%;
+        display: inline-block;
+        font-size: 16px;
+        height: 36px;
+        line-height: 30px;
+        width: 36px;
+        text-align: center;
+        text-shadow: none !important;
+        padding: 0;
+        cursor: default;
+        border: 3px solid #FFF !important;
+    }
+
+    #reject_block {
+        overflow: hidden;
+        display: block;
+        margin: 0 auto;
+    }
+</style>     

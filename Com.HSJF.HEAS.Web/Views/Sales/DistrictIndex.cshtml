@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.Sales.DistrictViewModel>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                <a href="/Home/Index/"><i class="icon-home"></i></a>
+                &nbsp;系统管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    &nbsp;地区管理
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+
+        <div class="hs-tool-bar">
+            <button class="btn btn-xs btn-success" onclick="javascript: window.location.href = '/Sales/CreateDistrict/'">
+                <i class="icon-plus-sign"></i>
+                新增
+            </button>
+        </div>
+        <div class="vspace-4"></div>
+
+        <div class="table-responsive">
+            <table id="group-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th>@Html.DisplayNameFor(model => model.ShortNumber)</th> 
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ShortNumber)</td> 
+                            <td>
+                                <a class="blue" href="/Sales/EditDistrict/@item.ID">
+                                    <i class="icon-pencil bigger-130" tooltip="true" title="修改"></i>
+                                </a>
+                                &nbsp;
+                                <a class="red" href="#" onclick="DelDistrict('@item.ID');">
+                                    <i class="icon-trash bigger-130" tooltip="true" title="删除"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('#group-table').DataTable({
+                "bSort": true,
+                "aaSorting": []
+            });
+        });
+
+        function DelDistrict(id) {
+            ConfirmBox("确定删除？", function () {
+                $.post("/Sales/DeleteDistrict", { id: id }, function (r) {
+                    if (r != null && r == "Success") {
+                        window.location = "/Sales/DistrictIndex?status=ds";
+                    }
+                });
+            });
+        }
+    </script>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Com.HSJF.HEAS.Web.Models.CheckBoxListModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<input id="SavePermission" type="button" value="保存" onclick="SaveUserPermission();" />
+<br />
+@Html.CheckBoxList("Permission", Model,new Dictionary<string,object>() { { "class", "hs-checkbox" } }, 4)
+
+<script type="text/javascript">
+    function SaveUserPermission() {
+        var plist = GetPermission();
+        var uid = $("#ID").val();
+        $.post("/Account/SaveUserPermission", { userid: uid, menuid: $("#hidmenuid").val(), permissName: plist }, function (r) {
+            if (r != null) {
+                alert(r);
+            }
+            else {
+                alert("无法保存权限");
+            }
+
+        });
+    }
+
+    function GetPermission() {
+        var plist = $("input[name='Permission'][type='checkbox']:checked");
+        var pstr = "";
+        for (var i = 0; i < plist.length; i++) {
+            pstr += $(plist[i]).val();
+            pstr += ",";
+        }
+        return pstr;
+    }
+</script>

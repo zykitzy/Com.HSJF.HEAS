@@ -1,0 +1,130 @@
+﻿@model Com.HSJF.HEAS.Web.Models.Menu.MenuViewModel
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <a class="label label-lg label-light arrowed" href="/Menu/Index">返回</a>
+            &nbsp;系统管理
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;菜单管理
+            </small>
+            <small>
+                <i class="icon-double-angle-right"></i>
+                &nbsp;修改
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    @using (Ajax.BeginForm("EditMenu", "Menu", new AjaxOptions() { HttpMethod="Post",OnSuccess="menu_edit_success"}, new { enctype = "multipart/form-data", @role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="hs-tool-bar">
+            <button type="submit" class="btn btn-xs btn-success">
+                <i class="icon-save"></i>
+                保存
+            </button>
+            <button type="button" class="btn btn-xs btn-primary" onclick="InitPermission();">
+                <i class="icon-edit"></i>
+                修改权限
+            </button>
+        </div>
+        <div class="vspace-4"></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a data-toggle="tab" href="#basic">信息</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="basic" class="tab-pane active">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Name)
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "")
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Url)
+                                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Url, "")
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Icon)
+                                    @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Icon, "")
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.Description)
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Description, "")
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.State)
+                                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.State, "")
+                                </div>
+                                <div class="col-xs-12 col-sm-offset-3 col-sm-6 form-group">
+                                    @Html.LabelFor(model => model.ParentID)
+                                    @Html.DropDownListFor(model => model.ParentID, new Com.HSJF.HEAS.Web.Helper.MenuList().RoleList(Model == null ? string.Empty : Model.ID, Model == null ? string.Empty : Model.ParentID), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ParentID, "")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="divPermission" class="hide"></div><!-- #dialog-message -->
+
+<script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript">
+    function InitPermission() {
+        $.get("/Permission/Index", { type: "menu", id: $("#ID").val() }, function (r) {
+            if (r != null) {
+                $("#divPermission").html(r);
+
+                var dialog = $("#divPermission").removeClass('hide').dialog({
+                    modal: true,
+                    title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='icon-edit'></i>修改权限</h4></div>",
+                    title_html: true,
+                    width: '50%',
+                    buttons: [
+                        {
+                            html: "<i class='icon-save bigger-110'></i>&nbsp; 保存",
+                            "class": "btn btn-primary btn-xs",
+                            click: function () {
+                                SavePermission(function () {
+                                    showAlert("权限保存成功");
+
+                                    dialog.dialog("close");
+                                });
+                            }
+                        },
+                        {
+                            html: "<i class='icon-remove bigger-110'></i>&nbsp; 取消",
+                            "class": "btn btn-xs",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+            }
+            else {
+                alert("无法获取权限");
+            }
+        });
+    }
+
+    function menu_edit_success() {
+        window.location = "/Menu/Index?status=ss";
+    }
+</script>
